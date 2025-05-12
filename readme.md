@@ -1,1 +1,1 @@
-una plataforma para compra y venta de celulares, con pagos y catalogos incluidos
+Una tienda virtual para vender hardware y accesorios de computadoras
