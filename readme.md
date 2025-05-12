@@ -1,1 +1,1 @@
-una plataforma para compra y venta de celulares, con pagos y catalogos incluidos
+En planeacion
