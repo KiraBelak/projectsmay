@@ -1,7 +1,7 @@
-🐵
-1-. Sistema de Gestión de Pedidos en Tiempo Real (E-commerce / Logística)
-2-. Plataforma de Encuestas y Resultados en Vivo
-## Temas Aplicados
+
+## Plataforma de Encuestas y Resultados en Vivo
+
+### Temas Aplicados
 
 * API REST con Spring Boot.  
 * Controladores, Servicios, Repositorios.  
