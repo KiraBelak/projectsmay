@@ -1,4 +1,4 @@
-En planeacion
+Tienda virtual para publicar y vender articulos, con comentarios y calificacion.
 ## Temas Aplicados
 
 * API REST con Spring Boot.  
