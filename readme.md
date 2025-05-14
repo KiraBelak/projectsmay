@@ -1,6 +1,8 @@
 una plataforma para compra y venta de celulares, con pagos y catalogos incluidos
 ## Temas Aplicados
 
+## Temas Aplicados
+
 * API REST con Spring Boot.  
 * Controladores, Servicios, Repositorios.  
 * Inyección de Dependencias (Spring).  
@@ -14,3 +16,4 @@ una plataforma para compra y venta de celulares, con pagos y catalogos incluidos
 * Programación Modular.  
 * Implementación de seguridad básica (Spring Security).  
 * Sockets
+* Programación Java API.
