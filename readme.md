@@ -1,6 +1,6 @@
 ﻿Projecto: Sistema para manejo de clientes y proovedores en un negocio, teniendo sistemas para poder identificar pagos pendientes, cortes y balances.
 
- ## Temas Aplicados
+## Temas Aplicados
 
 * API REST con Spring Boot.  
 * Controladores, Servicios, Repositorios.  
@@ -15,3 +15,4 @@
 * Programación Modular.  
 * Implementación de seguridad básica (Spring Security).  
 * Sockets
+* Programación Java API.
