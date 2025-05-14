@@ -24,3 +24,4 @@ API REST desarrollada con Spring Boot para gestionar videojuegos, accesorios y c
 * Corrientes y Corrientes Paralelas (Java Streams).  
 * Programación Modular.  
 * Implementación de seguridad básica (Spring Security).  
+* Sockets
