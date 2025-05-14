@@ -1,4 +1,4 @@
-﻿Branch creation
+Rest API para  la informacion de personajes de juegos de pelea. 
 ## Temas Aplicados
 
 ## Temas Aplicados
