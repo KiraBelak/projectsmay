@@ -25,3 +25,4 @@ API REST desarrollada con Spring Boot para gestionar videojuegos, accesorios y c
 * Programación Modular.  
 * Implementación de seguridad básica (Spring Security).  
 * Sockets
+* Programación Java API.
