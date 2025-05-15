@@ -1,9 +1,7 @@
 /* eslint-disable no-undef */
-//import {Stomp} from "https://cdn.jsdelivr.net/npm/stomp-websocket@2.3.4-next/lib/stomp.min.js";
-
 const username = prompt("Nickname:")?.trim() || "anon" + Math.floor(Math.random()*999);
 
-/* ---------------------------------------------------------------- STOMP */
+/* STOMP */
 let stomp;
 function connectSocket() {
     const sock = new SockJS("/ws");
@@ -11,8 +9,6 @@ function connectSocket() {
     stomp.debug = null; // Disable STOMP debug messages
     stomp.connect({}, () => {
         stomp.subscribe("/topic/game-state", onState);
-        // tell server we “joined”
-        stomp.send("/app/chat.addUser", {}, JSON.stringify({sender: username, type: "JOIN"}));
     });
 }
 function sendKey(key, pressed) {
@@ -20,11 +16,11 @@ function sendKey(key, pressed) {
     const msg = {type:"INPUT", player:username, key, pressed};
     stomp.send("/app/game.input", {}, JSON.stringify(msg));
 }
-/* ---------------------------------------------------------------- Phaser */
+/* Phaser */
 const config = {
     type: Phaser.AUTO,
     width: 800, height: 450,
-    backgroundColor: "#202020",
+    backgroundColor: "#555555",
     physics: { default: "arcade", arcade: {gravity:{y:0},debug:false} },
     scene: { preload, create, update }
 };
@@ -38,8 +34,16 @@ function preload() {
 }
 
 function create() {
-    connectSocket();
-
+    const phaserScene = this;
+    // Draw the scene
+    fetch("/api/scene")
+    .then(r => r.json())
+    .then(scene => {
+        // Draw every block of the scene
+        const g = phaserScene.add.graphics({ fillStyle: { color: 0x000000 } });
+        scene.blocks.forEach(b => g.fillRect(b.x, b.y, b.width, b.height));
+        connectSocket();
+    });
     // ← → Jump (↑ OR SPACE)
     this.cursors = this.input.keyboard.addKeys({
         LEFT : Phaser.Input.Keyboard.KeyCodes.LEFT,
@@ -47,8 +51,7 @@ function create() {
         JUMP : Phaser.Input.Keyboard.KeyCodes.UP,
         ATTACK : Phaser.Input.Keyboard.KeyCodes.SPACE
     });
-
-    // attach listeners; the closure already knows `name`
+    // attach listeners
     Object.entries(this.cursors).forEach(([name, key]) => {
         key.on("down", () => sendKey(name, true));   // ← no toKey() needed
         key.on("up",   () => sendKey(name, false));
@@ -57,46 +60,37 @@ function create() {
 
 
 function update() {
-    // nothing here – server is authoritative; we only render snapshots
+    // server is authoritative; whole game loop runs on onState()
 }
 
 function initializePlayer(name, p) {
     const scene = game.scene.scenes[0];
-    // sprite (feet at its own x/y)
+    // sprite
     const sprite = scene.add.sprite(0, 0, "p").setOrigin(0.5, 1);
-
-    // label, 4 px above the sprite’s head
+    // name and damage label, 4 px above the sprite’s head
     const label = scene.add
                       .text(0, -(sprite.displayHeight + 4), name + ` [${p.damage}]`,
                             { font: "12px Arial", fill: "#ffffff" })
                       .setOrigin(0.5, 1);
-
-    // group them together
     const container = scene.add.container(p.x, p.y, [sprite, label]);
-    // Store additional properties on the container
     container.sprite = sprite;
     container.label = label;
     container.attackSprite = null;
-    // highlight the local player
-    if (name === username) sprite.setTint(0xccddff);
+    if (name === username) sprite.setTint(0xccddff); // highlight the local player
     players.set(name, container);
 }
 
-/* Receive state. */
+/* Receive state. Main game loop. */
 function onState(frame) {
     const state = JSON.parse(frame.body).state;
     // log stuff
     let brief = Object.entries(state.players).map(([name,p]) => name + ' - ' + Object.entries(p).map(([k,v]) => k + ':' + v).join(', '));
     console.log(brief);
-    // 1½ lines per player: create if missing, tween toward new pos
     Object.entries(state.players).forEach(([name, p]) => {
-
         if (!players.has(name)) {
             initializePlayer(name, p);
         }
-
         const container = players.get(name);
-        // show / hide fist while attackFrame > 0
         if (p.attackFrame > 0) {
             if (!container.attackSprite) {
                 let spriteX = p.facingRight ? 32 : -32;

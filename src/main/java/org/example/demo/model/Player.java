@@ -1,6 +1,7 @@
 package org.example.demo.model;
 
 import lombok.Getter;
+import org.example.demo.domain.Fighter;
 
 @Getter
 public class Player {
