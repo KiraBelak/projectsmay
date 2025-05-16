@@ -1,13 +1,11 @@
-package com.alldata.jproject;
+package com.alldata.mobsell;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JprojectApplication {
-
+public class MobSellApplication {
     public static void main(String[] args) {
-        SpringApplication.run(JprojectApplication.class, args);
+        SpringApplication.run(MobSellApplication.class, args);
     }
-
 }

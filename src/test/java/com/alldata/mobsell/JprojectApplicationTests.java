@@ -1,4 +1,4 @@
-package com.alldata.jproject;
+package com.alldata.mobsell;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
