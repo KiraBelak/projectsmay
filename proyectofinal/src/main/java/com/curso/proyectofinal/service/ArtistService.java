@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curso.proyectofinal.dto.ArtistDTO;
+import com.curso.proyectofinal.exception.ResourceNotFoundException;
 import com.curso.proyectofinal.model.Artist;
 import com.curso.proyectofinal.repository.ArtistRepository;
 
@@ -29,14 +30,8 @@ public class ArtistService {
     }
 
     public ArtistDTO getArtistById(Long id) {
-        Artist artist = null;
-        try {
-            artist = artistRepository.findById(id)
-                    .orElseThrow(() -> new Exception("Artista no encontrado con id: " + id));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Artist artist = artistRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Artista no encontrado con id: " + id));
         return convertToDTO(artist);
     }
 
@@ -57,21 +52,15 @@ public class ArtistService {
         Artist savedArtist = artistRepository.save(artist);
         ArtistDTO savedArtistDTO = convertToDTO(savedArtist);
 
-        // Enviar notificación
+        // Enviar notificaciĆ³n
         notificationService.notifyNewArtist(savedArtistDTO);
 
         return savedArtistDTO;
     }
 
     public ArtistDTO updateArtist(Long id, ArtistDTO artistDTO) {
-        Artist existingArtist = null;
-        try {
-            existingArtist = artistRepository.findById(id)
-                    .orElseThrow(() -> new Exception("Artista no encontrado con id: " + id));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Artist existingArtist = artistRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Artista no encontrado con id: " + id));
 
         existingArtist.setName(artistDTO.getName());
         existingArtist.setBiography(artistDTO.getBiography());
@@ -81,9 +70,9 @@ public class ArtistService {
         return convertToDTO(updatedArtist);
     }
 
-    public void deleteArtist(Long id) throws Exception {
+    public void deleteArtist(Long id) {
         if (!artistRepository.existsById(id)) {
-            throw new Exception("Artista no encontrado con id: " + id);
+            throw new ResourceNotFoundException("Artista no encontrado con id: " + id);
         }
         artistRepository.deleteById(id);
     }

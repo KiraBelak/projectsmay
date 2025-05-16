@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curso.proyectofinal.dto.AlbumDTO;
+import com.curso.proyectofinal.exception.ResourceNotFoundException;
 import com.curso.proyectofinal.model.Album;
 import com.curso.proyectofinal.model.Artist;
 import com.curso.proyectofinal.repository.AlbumRepository;
@@ -35,14 +36,8 @@ public class AlbumService {
     }
 
     public AlbumDTO getAlbumById(Long id) {
-        Album album = null;
-        try {
-            album = albumRepository.findById(id)
-                    .orElseThrow(() -> new Exception("Álbum no encontrado con id: " + id));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Album album = albumRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Álbum no encontrado con id: " + id));
         return convertToDTO(album);
     }
 
@@ -82,29 +77,17 @@ public class AlbumService {
     }
 
     public AlbumDTO updateAlbum(Long id, AlbumDTO albumDTO) {
-        Album existingAlbum = null;
-        try {
-            existingAlbum = albumRepository.findById(id)
-                    .orElseThrow(() -> new Exception("Álbum no encontrado con id: " + id));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Album existingAlbum = albumRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Álbum no encontrado con id: " + id));
 
         existingAlbum.setTitle(albumDTO.getTitle());
         existingAlbum.setReleaseDate(albumDTO.getReleaseDate());
         existingAlbum.setGenre(albumDTO.getGenre());
 
         if (albumDTO.getArtistId() != null) {
-            Artist artist = null;
-            try {
-                artist = artistRepository.findById(albumDTO.getArtistId())
-                        .orElseThrow(() -> new Exception(
-                                "Artista no encontrado con id: " + albumDTO.getArtistId()));
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Artist artist = artistRepository.findById(albumDTO.getArtistId())
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            "Artista no encontrado con id: " + albumDTO.getArtistId()));
             existingAlbum.setArtist(artist);
         }
 
@@ -112,9 +95,9 @@ public class AlbumService {
         return convertToDTO(updatedAlbum);
     }
 
-    public void deleteAlbum(Long id) throws Exception {
+    public void deleteAlbum(Long id) {
         if (!albumRepository.existsById(id)) {
-            throw new Exception("Álbum no encontrado con id: " + id);
+            throw new ResourceNotFoundException("Álbum no encontrado con id: " + id);
         }
         albumRepository.deleteById(id);
     }
@@ -142,15 +125,9 @@ public class AlbumService {
         album.setGenre(dto.getGenre());
 
         if (dto.getArtistId() != null) {
-            Artist artist = null;
-            try {
-                artist = artistRepository.findById(dto.getArtistId())
-                        .orElseThrow(
-                                () -> new Exception("Artista no encontrado con id: " + dto.getArtistId()));
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Artist artist = artistRepository.findById(dto.getArtistId())
+                    .orElseThrow(
+                            () -> new ResourceNotFoundException("Artista no encontrado con id: " + dto.getArtistId()));
             album.setArtist(artist);
         }
 

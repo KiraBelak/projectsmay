@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curso.proyectofinal.dto.SongDTO;
+import com.curso.proyectofinal.exception.ResourceNotFoundException;
 import com.curso.proyectofinal.model.Album;
 import com.curso.proyectofinal.model.Song;
 import com.curso.proyectofinal.repository.AlbumRepository;
@@ -34,14 +35,8 @@ public class SongService {
     }
 
     public SongDTO getSongById(Long id) {
-        Song song = null;
-        try {
-            song = songRepository.findById(id)
-                    .orElseThrow(() -> new Exception("Canción no encontrada con id: " + id));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Song song = songRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Canción no encontrada con id: " + id));
         return convertToDTO(song);
     }
 
@@ -81,29 +76,17 @@ public class SongService {
     }
 
     public SongDTO updateSong(Long id, SongDTO songDTO) {
-        Song existingSong = null;
-        try {
-            existingSong = songRepository.findById(id)
-                    .orElseThrow(() -> new Exception("Canción no encontrada con id: " + id));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Song existingSong = songRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Canción no encontrada con id: " + id));
 
         existingSong.setTitle(songDTO.getTitle());
         existingSong.setDurationInSeconds(songDTO.getDurationInSeconds());
         existingSong.setGenre(songDTO.getGenre());
 
         if (songDTO.getAlbumId() != null) {
-            Album album = null;
-            try {
-                album = albumRepository.findById(songDTO.getAlbumId())
-                        .orElseThrow(
-                                () -> new Exception("Álbum no encontrado con id: " + songDTO.getAlbumId()));
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Album album = albumRepository.findById(songDTO.getAlbumId())
+                    .orElseThrow(
+                            () -> new ResourceNotFoundException("Álbum no encontrado con id: " + songDTO.getAlbumId()));
             existingSong.setAlbum(album);
         }
 
@@ -111,9 +94,9 @@ public class SongService {
         return convertToDTO(updatedSong);
     }
 
-    public void deleteSong(Long id) throws Exception {
+    public void deleteSong(Long id) {
         if (!songRepository.existsById(id)) {
-            throw new Exception("Canción no encontrada con id: " + id);
+            throw new ResourceNotFoundException("Canción no encontrada con id: " + id);
         }
         songRepository.deleteById(id);
     }
@@ -146,15 +129,9 @@ public class SongService {
         song.setGenre(dto.getGenre());
 
         if (dto.getAlbumId() != null) {
-            Album album = null;
-            try {
-                album = albumRepository.findById(dto.getAlbumId())
-                        .orElseThrow(
-                                () -> new Exception("Álbum no encontrado con id: " + dto.getAlbumId()));
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            Album album = albumRepository.findById(dto.getAlbumId())
+                    .orElseThrow(
+                            () -> new ResourceNotFoundException("Álbum no encontrado con id: " + dto.getAlbumId()));
             song.setAlbum(album);
         }
 
