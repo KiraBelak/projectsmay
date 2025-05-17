@@ -24,6 +24,7 @@ public class PlayerState {
 
     private float damage;
 
+    private Long fighterId; //TODO: this shouldn't be here. Not required for every frame update.
 
     public PlayerState(float x, float y) {
         this.x = x;
@@ -43,6 +44,7 @@ public class PlayerState {
         p.attackFrame = attackFrame;
         p.hitCooldown = hitCooldown;
         p.damage = damage;
+        p.fighterId = fighterId;
         return p;
     }
 }

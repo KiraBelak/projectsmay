@@ -1,5 +1,6 @@
 package org.example.demo.model;
 
+
 import lombok.Getter;
 
 import java.util.Collections;

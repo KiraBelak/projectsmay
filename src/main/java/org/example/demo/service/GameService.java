@@ -4,6 +4,7 @@ import org.example.demo.domain.Fighter;
 import org.example.demo.domain.Scene;
 import org.example.demo.model.*;
 import org.example.demo.model.GameMessage.MessageType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -31,19 +32,27 @@ public class GameService {
 
     private final SimpMessagingTemplate template;
 
-    public GameService(SimpMessagingTemplate template) {
+
+    private final FighterService fighterService;
+
+    @Autowired
+    public GameService(SimpMessagingTemplate template, FighterService fighterService) {
         this.template = template;
+        this.fighterService = fighterService;
     }
-
-
 
     public void processInput(GameMessage msg) {
         if (msg.getType() != MessageType.INPUT) return;
 
+        // Create player if it doesn't exist yet.
+        //TODO: move to proper player creation
+        Fighter fighter = msg.getFighterId() == null ? new Fighter() : fighterService.getFighterById(msg.getFighterId());
         var p = players.computeIfAbsent(msg.getPlayer(),
                 name -> new Player(
                             new PlayerState((float) (Math.random() * 500), (float) (Math.random() * 300)),// spawn point
-                            new Fighter()));
+                            fighter));
+        p.getState().setFighterId(fighter.getId());
+
         // another player for testing
         players.computeIfAbsent(msg.getPlayer() + "_cpu",
             name -> new Player(
@@ -192,7 +201,7 @@ public class GameService {
             attackTick(keys, py);
 
             // Gravity
-            ps.setVy(Math.min(ps.getVy() + GRAVITY * dt, MAX_VELOCITY));
+            ps.setVy(Math.min(ps.getVy() + GRAVITY * dt * py.getFighter().getWeight(), MAX_VELOCITY));
 
             // Integrate
             ps.setX(ps.getX() + ps.getVx() * dt);

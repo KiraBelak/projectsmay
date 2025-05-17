@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 const username = prompt("Nickname:")?.trim() || "anon" + Math.floor(Math.random()*999);
+const players = new Map();   // name -> sprite
+let fightersMap = new Map();
 
 /* STOMP */
 let stomp;
@@ -13,7 +15,9 @@ function connectSocket() {
 }
 function sendKey(key, pressed) {
     if (!stomp?.connected) return;
-    const msg = {type:"INPUT", player:username, key, pressed};
+    const fighterId = username.split(":")[1];
+    const user = username.split(":")[0];
+    const msg = {type:"INPUT", player:user, key, pressed, fighterId};
     stomp.send("/app/game.input", {}, JSON.stringify(msg));
 }
 /* Phaser */
@@ -26,15 +30,26 @@ const config = {
 };
 const game = new Phaser.Game(config);
 
-const players = new Map();   // name -> sprite
 
 function preload() {
-    this.load.image("p", "img/quirbi.png"); // 32×32 placeholder
-    this.load.image("fist", "img/fist.png");
+    const scene = this;
+    scene.load.image("p", "img/char24.png"); // 32×32 placeholder
+    scene.load.image("fist", "img/fist.png");
+
+    fetch("/api/fighters").then(r => r.json())
+    .then(fs => {
+        fightersMap = new Map(fs.map(f => [f.id, f]));
+        fs.forEach(fighter => {
+            scene.load.image("f_" + fighter.id, fighter.imageUrl);
+        });
+        scene.load.once('complete', () => console.log('all fighters loaded'));
+        scene.load.start();
+    });
 }
 
 function create() {
     const phaserScene = this;
+
     // Draw the scene
     fetch("/api/scene")
     .then(r => r.json())
@@ -66,12 +81,19 @@ function update() {
 function initializePlayer(name, p) {
     const scene = game.scene.scenes[0];
     // sprite
-    const sprite = scene.add.sprite(0, 0, "p").setOrigin(0.5, 1);
+    // playerFighter from fightersMap or random from fightersMap
+    const playerFighter = fightersMap.get(p.fighterId) || fightersMap.values().next().value;
+    const sprite = scene.add
+        .sprite(0, 0, "f_" + playerFighter.id)
+        .setOrigin(0.5, 1)
+        .setDisplaySize(32, 32);
     // name and damage label, 4 px above the sprite’s head
     const label = scene.add
-                      .text(0, -(sprite.displayHeight + 4), name + ` [${p.damage}]`,
-                            { font: "12px Arial", fill: "#ffffff" })
-                      .setOrigin(0.5, 1);
+        .text(0,
+            -(sprite.displayHeight + 4),
+            name + ` [${p.damage}]`,
+            { font: "12px Arial", fill: "#ffffff" })
+        .setOrigin(0.5, 1);
     const container = scene.add.container(p.x, p.y, [sprite, label]);
     container.sprite = sprite;
     container.label = label;
@@ -91,6 +113,7 @@ function onState(frame) {
             initializePlayer(name, p);
         }
         const container = players.get(name);
+        container.sprite.setFlipX(!p.facingRight);
         if (p.attackFrame > 0) {
             if (!container.attackSprite) {
                 let spriteX = p.facingRight ? 32 : -32;
