@@ -16,6 +16,13 @@ public class Account {
     @JoinColumn(name="account_id", referencedColumnName = "id")
     private Account accountName;
 
+    @Column(nullable = false)
+    private String pass;
+
+    public String getPass() {return pass;}
+
+    public void setPass(String pass) {this.pass = pass;}
+
     public Long getId() {
         return id;
     }
