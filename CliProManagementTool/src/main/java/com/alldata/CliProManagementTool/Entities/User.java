@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Table(name="Users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class User {
 
     @Id

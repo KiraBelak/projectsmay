@@ -11,7 +11,6 @@ import java.util.List;
 @Table(name="client")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Client {
 
     @Id
