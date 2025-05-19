@@ -52,7 +52,7 @@ public class ArtistService {
         Artist savedArtist = artistRepository.save(artist);
         ArtistDTO savedArtistDTO = convertToDTO(savedArtist);
 
-        // Enviar notificaciĆ³n
+        // Enviar notificacion
         notificationService.notifyNewArtist(savedArtistDTO);
 
         return savedArtistDTO;

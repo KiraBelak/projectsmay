@@ -27,19 +27,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
-        // get JWT token from http request
+        // Obtener token de la solicitud
         String token = getJWTFromRequest(request);
-        // validate token
+        // Validar token
         if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
-            // get username from token
+            // Obtener el nombre de usuario del token
             String username = tokenProvider.getUsernameFromJWT(token);
-            // load user associated with token
+            // Cargar los detalles del usuario asociado con el token
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            // set spring security
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

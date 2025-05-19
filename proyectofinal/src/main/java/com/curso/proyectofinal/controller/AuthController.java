@@ -1,7 +1,5 @@
 package com.curso.proyectofinal.controller;
 
-import java.util.HashSet;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +19,9 @@ import com.curso.proyectofinal.dto.RegisterDTO;
 import com.curso.proyectofinal.model.User;
 import com.curso.proyectofinal.repository.UserRepository;
 import com.curso.proyectofinal.security.JwtTokenProvider;
+
+import java.util.Collections;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -53,23 +54,23 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterDTO registerDTO) {
-        // Check if username exists
+        // Validar si el usuario ya existe
         if (userRepository.existsByUsername(registerDTO.getUsername())) {
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
 
-        // Check if email exists
+        // Validar si el correo electrónico ya existe
         if (userRepository.existsByEmail(registerDTO.getEmail())) {
             return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
         }
 
-        // Create new user
+        // Crear nuevo usuario
         User user = new User();
         user.setUsername(registerDTO.getUsername());
         user.setEmail(registerDTO.getEmail());
         user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
-        // By default, assign USER role
+        // Asignar rol de usuario por defecto al nuevo usuario
         HashSet<String> roles = new HashSet<>();
         roles.add("USER");
         user.setRoles(roles);

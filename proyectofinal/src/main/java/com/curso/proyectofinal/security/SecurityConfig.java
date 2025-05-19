@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/ws/**").permitAll()
-                        .requestMatchers("/topic/**").permitAll() // Añadir esto
+                        .requestMatchers("/topic/**").permitAll()
                         .requestMatchers("/**").permitAll() // Permitir acceso a recursos estáticos
                         .requestMatchers("/api/*/search", "/api/*/search/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
