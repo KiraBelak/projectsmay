@@ -1,16 +1,16 @@
 package org.example.demo.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.example.demo.domain.Fighter;
 
 @Getter
+@AllArgsConstructor
 public class Player {
+    private final String name;
+
     private final PlayerState state;
 
     private final Fighter fighter;
 
-    public Player(PlayerState state, Fighter fighter) {
-        this.state   = state;
-        this.fighter = fighter;
-    }
 }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8" />
+    <title>Player Statistics</title>
+
+    <!-- Tailwind CSS CDN (no build step required) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-full">
+<div class="min-h-full flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 mb-8">
+        Player Statistics
+    </h1>
+
+    <!-- Table wrapper for horizontal scroll on mobile -->
+    <div class="w-full overflow-x-auto">
+        <table id="statsTable" class="min-w-full divide-y divide-gray-200 border rounded-lg bg-white">
+            <thead class="bg-gray-100">
+            <tr>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Fighter</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Matches</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">KOs</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Defeats</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Damage Dealt</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Damage Taken</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hits Dealt</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hits Taken</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Attacks</th>
+                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Accuracy</th>
+            </tr>
+            </thead>
+            <tbody id="statsTBody" class="divide-y divide-gray-200">
+            <!-- rows injected by JS -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // helper to create TD elements
+    const td = (text) => {
+        const cell = document.createElement('td');
+        cell.className = 'px-4 py-2 whitespace-nowrap text-sm text-gray-700';
+        cell.innerHTML = text;
+        return cell;
+    };
+
+    fetch('/api/stats')
+        .then(res => {
+            if (!res.ok) throw new Error('Network response was not ok');
+            return res.json();
+        })
+        .then(data => {
+            const tbody = document.getElementById('statsTBody');
+            data.forEach(stat => {
+                const tr = document.createElement('tr');
+                tr.appendChild(td(`<img src="${stat.lastFighter}"></img>` ?? ''));
+                tr.appendChild(td(stat.name));
+                tr.appendChild(td(stat.matches ?? ''));
+                tr.appendChild(td(stat.kos ?? ''));
+                tr.appendChild(td(stat.defeats ?? ''));
+                tr.appendChild(td(stat.damageDealt ?? ''));
+                tr.appendChild(td(stat.damageTaken ?? ''));
+                tr.appendChild(td(stat.hitsDealt ?? ''));
+                tr.appendChild(td(stat.hitsTaken ?? ''));
+                tr.appendChild(td(stat.attacks ?? ''));
+                tr.appendChild(td(stat.accuracy != null ? stat.accuracy.toFixed(4) * 100 + '%' : ''));
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(err => {
+            console.error('Failed to fetch stats:', err);
+            const tbody = document.getElementById('statsTBody');
+            const tr = document.createElement('tr');
+            const cell = document.createElement('td');
+            cell.setAttribute('colspan', '11');
+            cell.className = 'px-4 py-4 text-center text-red-600';
+            cell.textContent = 'Failed to load statistics';
+            tr.appendChild(cell);
+            tbody.appendChild(tr);
+        });
+</script>
+</body>
+</html>
