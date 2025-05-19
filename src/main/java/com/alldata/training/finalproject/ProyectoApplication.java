@@ -1,4 +1,4 @@
-package com.alldata.training.proyecto;
+package com.alldata.training.finalproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
