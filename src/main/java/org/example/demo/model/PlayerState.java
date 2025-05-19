@@ -18,7 +18,7 @@ public class PlayerState {
 
     private boolean isFacingRight;
 
-    private int attackFrame; //reverse frame count
+    private int attackFrame; //reverse frame count; attack duration
 
     private int hitCooldown;
 

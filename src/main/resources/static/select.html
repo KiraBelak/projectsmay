@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Select your fighter</title>
+    <style>
+        body           {font-family:Arial;margin:0;padding:20px;background:#222;color:#fff}
+        h1             {margin-top:0}
+        .grid          {display:grid;grid-template-columns:repeat(auto-fill,120px);gap:16px}
+        .card          {cursor:pointer;border:2px solid transparent;padding:4px;text-align:center;width:120px}
+        .card.selected {border-color:#0f0}
+        img            {width:96px;height:96px;object-fit:contain;background:#111}
+
+        /*  bar layout */
+        .stats         {margin-top:4px}
+        .stat          {display:flex;align-items:center;font-size:10px;margin-bottom:2px}
+        .stat span     {width:32px;text-align:left}
+        .bar           {flex:1;height:4px;background:#444;margin-left:4px}
+        .fill          {height:100%;background:#0af}
+    </style>
+</head>
+<body>
+<h1>Pick your fighter</h1>
+<label>
+    Nickname:
+    <input id="nick" placeholder="Kirby"/>
+</label>
+<div id="fighters" class="grid"></div>
+<button id="play" disabled>PLAY</button>
+
+<script type="module" src="/js/select.js"></script>
+</body>
+</html>

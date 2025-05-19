@@ -54,7 +54,8 @@
         })
         .then(data => {
             const tbody = document.getElementById('statsTBody');
-            data.forEach(stat => {
+            data.sort((a, b) => b.kos - a.kos)
+                .forEach(stat => {
                 const tr = document.createElement('tr');
                 tr.appendChild(td(`<img src="${stat.lastFighter}"></img>` ?? ''));
                 tr.appendChild(td(stat.name));

@@ -92,13 +92,13 @@ public class GameService {
 
     void attackTick(Set<String> keys, Player p1) {
         var ps = p1.getState();
+        int attackCooldown = p1.getFighter().getAttack().getCooldown();
         if (ps.getHitCooldown() < MAX_HIT_COOLDOWN && ps.getHitCooldown() >= 0) {
             ps.setHitCooldown(ps.getHitCooldown() + 1);
         }
         final int attackSize = p1.getFighter().getAttack().getSize();
         // Attack
         if (ps.getAttackFrame() > 0) {
-            ps.setAttackFrame(ps.getAttackFrame() - 1);
             //attack sprite is left or right of player
             float attackSpriteX = ps.isFacingRight() ? ps.getX() + attackSize : ps.getX() - attackSize;
             // attack bounds
@@ -106,8 +106,7 @@ public class GameService {
             // check collision with other players. Hit players modify their vx and vy.
             players.values().parallelStream()
                     .filter(other -> !other.getState().equals(ps))
-                    .filter(other -> other.getState().getHitCooldown() < 0 || other.getState().getHitCooldown() > 12)
-                    .peek(other -> statsOf(p1).setAttacks(statsOf(p1).getAttacks() + 1)) // increase attack count
+                    .filter(other -> other.getState().getHitCooldown() < 0 || other.getState().getHitCooldown() > 6) // some grace period between hits
                     .filter(other -> attackBounds.intersects(
                             other.getState().getX(), other.getState().getY(), attackSize, attackSize))
                     .forEach(p2 -> {
@@ -128,10 +127,13 @@ public class GameService {
                         statsOf(p2).setLastHitBy(p1.getName());
                     });
         }
-        else if (keys.contains("ATTACK") && ps.getAttackFrame() == 0) {
-            ps.setAttackFrame(5);
+        else if (keys.contains("ATTACK") && ps.getAttackFrame() <= -attackCooldown / 2) {
+            ps.setAttackFrame(attackCooldown / 2);
+            statsOf(p1).setAttacks(statsOf(p1).getAttacks() + 1);
         }
-
+        if (ps.getAttackFrame() > -attackCooldown) {
+            ps.setAttackFrame(ps.getAttackFrame() - 1);
+        }
         // if current player is hit, reduce current vx each tick until 0
         if (ps.getHitCooldown() >= 0) {
             if ((int)Math.abs(ps.getVx()) <= 0) {
@@ -250,7 +252,7 @@ public class GameService {
     }
 
     @Async
-    @Scheduled(fixedRate = 10_000)
+    @Scheduled(fixedRate = 3_000)
     void flushStats() {
         statsCache.values().forEach(statsService::saveStats);
     }

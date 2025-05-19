@@ -1,5 +1,8 @@
 /* eslint-disable no-undef */
-const username = prompt("Nickname:")?.trim() || "anon" + Math.floor(Math.random()*999);
+const urlParams = new URLSearchParams(location.search);
+const username  = urlParams.get('name')    || 'anon' + Math.floor(Math.random()*999);
+const fighterId = Number(urlParams.get('fighter')) || null;
+
 const players = new Map();   // name -> sprite
 let fightersMap = new Map();
 
@@ -15,9 +18,13 @@ function connectSocket() {
 }
 function sendKey(key, pressed) {
     if (!stomp?.connected) return;
-    const fighterId = username.split(":")[1];
-    const user = username.split(":")[0];
-    const msg = {type:"INPUT", player:user, key, pressed, fighterId};
+    const msg = {
+        type     : "INPUT",
+        player   : username,
+        key,
+        pressed,
+        fighterId
+    };
     stomp.send("/app/game.input", {}, JSON.stringify(msg));
 }
 /* Phaser */
@@ -35,7 +42,7 @@ function preload() {
     const scene = this;
     scene.load.image("p", "img/char24.png"); // 32×32 placeholder
     scene.load.image("fist", "img/fist.png");
-
+    scene.load.image("flash", "img/flash.png");
     fetch("/api/fighters").then(r => r.json())
     .then(fs => {
         fightersMap = new Map(fs.map(f => [f.id, f]));
@@ -113,7 +120,9 @@ function onState(frame) {
             initializePlayer(name, p);
         }
         const container = players.get(name);
+        container.label.setText(name + ` [${p.damage}]`);
         container.sprite.setFlipX(!p.facingRight);
+        // attack sprite
         if (p.attackFrame > 0) {
             if (!container.attackSprite) {
                 let spriteX = p.facingRight ? 32 : -32;
@@ -125,6 +134,10 @@ function onState(frame) {
                 container.add(attack);
                 container.attackSprite = attack;
             }
+            else {
+                container.attackSprite.setFlipX(!p.facingRight);
+                container.attackSprite.setX(p.facingRight ? 32 : -32);
+            }
         } else {
             if (container.attackSprite) {
                 container.remove(container.attackSprite);
@@ -132,7 +145,24 @@ function onState(frame) {
                 container.attackSprite = null;
             }
         }
-        container.label.setText(name + ` [${p.damage}]`);
+        // hit sprite, show flash
+        if (p.hitCooldown > 0 && p.hitCooldown <= 1) {
+            if (!container.flashSprite) {
+                const flash = game.scene.scenes[0].add
+                                .sprite(0, 0, "flash")
+                                .setOrigin(0.5, 0.7)
+                                .setDisplaySize(150, 150);
+                container.add(flash);
+                container.flashSprite = flash;
+            }
+        } else {
+            if (container.flashSprite) {
+                container.remove(container.flashSprite);
+                container.flashSprite.destroy();
+                container.flashSprite = null;
+            }
+        }
+
 
         game.scene.scenes[0].tweens.add({
             targets: container,
