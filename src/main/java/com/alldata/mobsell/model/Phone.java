@@ -2,9 +2,11 @@ package com.alldata.mobsell.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Primary;
 
+@Primary
 @Entity
-@Table(name = "products")
+@Table(name = "phones")
 public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
