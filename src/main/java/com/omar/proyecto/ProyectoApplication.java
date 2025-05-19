@@ -1,4 +1,4 @@
-package com.example.omarcontreras.proyecto;
+package com.omar.proyecto;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
