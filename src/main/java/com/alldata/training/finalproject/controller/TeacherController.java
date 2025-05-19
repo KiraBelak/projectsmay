@@ -16,12 +16,12 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
 
-    @GetMapping
+    @GetMapping("/getall")
     public List<Teacher> getAllTeachers() {
         return teacherService.getAllTeachers();
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public Teacher createTeacher(@RequestBody Teacher teacher) {
         return teacherService.saveTeacher(teacher);
     }

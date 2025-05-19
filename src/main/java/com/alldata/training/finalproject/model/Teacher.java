@@ -1,9 +1,13 @@
 package com.alldata.training.finalproject.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,16 +19,9 @@ public class Teacher {
     private String firstname;
     private String lastname;
  
-    public Teacher() {
-        
-    }
- 
-    public Teacher(Long id, String firstname, String lastname) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
-  
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Homework> homeworks;
+
     public Long getId() {
         return id;
     }
@@ -46,6 +43,15 @@ public class Teacher {
     }
 
     public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public Teacher() {
+        
+    }
+ 
+    public Teacher(String firstname, String lastname) {
+        this.firstname = firstname;
         this.lastname = lastname;
     }
 
