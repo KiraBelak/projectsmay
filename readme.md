@@ -7,17 +7,17 @@ Almacenamiento en DB de estadísticas y atributos de personajes.
 
 ## Temas Aplicados
 
-* API REST con Spring Boot.  
-* Controladores, Servicios, Repositorios.  
-* Inyección de Dependencias (Spring).  
-* Configuración de Beans (Spring).  
-* Unit Testing (JUnit, Mockito).  
-* Manejo de Excepciones.  
-* Collections y Genéricos.  
-* Lambdas y Streams.  
-* Patrón de Diseño (Factory, Repository, DTO).  
-* Corrientes y Corrientes Paralelas (Java Streams).  
-* Programación Modular.  
-* Implementación de seguridad básica (Spring Security).  
-* Sockets
-* Programación Java API.
+* [x] API REST con Spring Boot.  
+* [x] Controladores, Servicios, Repositorios.  
+* [x] Inyección de Dependencias (Spring).  
+* [x] Configuración de Beans (Spring).  
+* [ ] Unit Testing (JUnit, Mockito).  
+* [ ] Manejo de Excepciones.  
+* [x] Collections y Genéricos.  
+* [x] Lambdas y Streams.  
+* [ ] Patrón de Diseño (Factory, Repository, DTO).  
+* [x] Streams Paralelas
+* [ ] Programación Modular.  
+* [ ] Implementación de seguridad básica (Spring Security).  
+* [x] Sockets
+* [ ] Programación Java API.
