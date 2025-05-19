@@ -28,9 +28,9 @@ public class RegisterController {
 //    }
 
     @PostMapping("/register/save")
-    public ResponseEntity<String> userRegistration(@ModelAttribute User user){
+    public String userRegistration(@ModelAttribute User user){
         //agregar datos a la db
         userService.registerNewUser(user);
-        return ResponseEntity.ok("login");
+        return "login";
     }
 }

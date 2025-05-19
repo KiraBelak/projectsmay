@@ -12,12 +12,10 @@ import java.util.List;
 @Service
 public class OrderServiceImpl {
     //en service impl se hace la logica de consulta
-    private final OrderRepository orderRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository){
-        this.orderRepository = orderRepository;
+    public OrderServiceImpl( UserRepository userRepository){
         this.userRepository = userRepository;
     }
 
