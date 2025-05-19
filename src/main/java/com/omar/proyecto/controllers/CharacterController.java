@@ -25,8 +25,7 @@ public class CharacterController {
 
     @PostMapping("/char")
     public ResponseEntity<Character> newCharacter(@RequestBody Character newCharacter){
-        //long id = 55;
-        //newCharacter.id(id);
+
         return new ResponseEntity<>(newCharacter, HttpStatus.CREATED);
     }
     
