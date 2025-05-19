@@ -7,5 +7,19 @@
 <body>
     <h1>Bienvenido</h1>
     <!-- agregar aqui listas de los productos -->
+    <h3>Productos disponibles</h3>
+    <div th:if="${ not#lists.isEmpty(products)}">
+        <table>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td><button type="button">Agregar</button></td>
+            </tr>
+            <table>
+    </div>
 </body>
 </html>
