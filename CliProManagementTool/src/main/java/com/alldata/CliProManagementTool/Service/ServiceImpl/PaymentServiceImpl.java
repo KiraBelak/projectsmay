@@ -33,7 +33,7 @@ public class PaymentServiceImpl {
         }
     }
 
-    public List<Payment> getPaymentsById(Long id){
-        return paymentRepository.findAllById(Collections.singleton(id));
+    public List<Payment> getPaymentsById(){
+        return paymentRepository.findAll();
     }
 }

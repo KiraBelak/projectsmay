@@ -67,7 +67,7 @@ public class Provider {
         this.description = description;
     }
 
-    public Provider( String companyName, String providerProductName, String description) {
+    public Provider(String companyName, String providerProductName, String description) {
         this.companyName = companyName;
         this.providerProductName = providerProductName;
         this.description = description;

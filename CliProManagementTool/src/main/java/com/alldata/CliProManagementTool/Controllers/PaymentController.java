@@ -31,9 +31,9 @@ public class PaymentController {
         }
     }
 
-    @GetMapping("/clientId/{id}")
+    @GetMapping("/all")
     public ResponseEntity<List<Payment>> getAllPayments(@RequestParam Long id){
-        return ResponseEntity.ok(paymentService.getPaymentsById(id));
+        return ResponseEntity.ok(paymentService.getPaymentsById());
     }
 
 }

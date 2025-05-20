@@ -18,7 +18,7 @@ public class Client {
     private String email;
     private String representative;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "id", orphanRemoval = true , cascade = CascadeType.ALL)
     private List<Payment> payments;
 
     public Long getId() {

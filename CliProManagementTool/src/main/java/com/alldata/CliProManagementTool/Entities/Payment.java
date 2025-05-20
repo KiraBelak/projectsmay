@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
 
@@ -24,12 +25,15 @@ public class Payment {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @Column(name="provider_id")
-    private Long provider;
+    @ManyToOne
+    @JoinColumn(name="provider_id")
+    private Provider provider;
 
-    public Payment(String paymentDescriptions, double quantity) {
-        this.paymentDescriptions = paymentDescriptions;
+    public Payment(double quantity, String paymentDescriptions, Client client, Provider provider) {
         this.quantity = quantity;
+        this.paymentDescriptions = paymentDescriptions;
+        this.client = client;
+        this.provider = provider;
     }
 
     public Payment() {
