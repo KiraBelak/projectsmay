@@ -1,3 +1,29 @@
-### GET request to example server
-GET http://localhost:8080/api/phone
 ###
+@baseUrl = http://localhost:2264
+@userCredentials = odette:garu
+@adminCredentials = admin:admin123
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnRvbmlvIiwiaWF0IjoxNzQ3NzY1NTYzLCJleHAiOjE3NDc4NTE5NjN9.i_PxXfIYULiVVJ_PjutWDoPphHgydUhdlTxh4-7Wldw
+
+###
+GET {{baseUrl}}/api/phones
+Authorization: Bearer {{token}}
+###
+GET http://localhost:2264/api/phone/make/apple
+Authorization: Bearer {{token}}
+###
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{"username":"antonio","password":"garu","email":"a@email.com"}
+###
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{"username":"antonio","password":"garu"}
+
+###
+POST {{baseUrl}}/api/phones
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"make":"Samsung","model":"Galaxy S21","cpu":"Exynos 2100","ram":8,"price":799}

@@ -2,12 +2,30 @@ package com.alldata.mobsell.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.context.annotation.Primary;
 
+@Getter
+@Setter
 @Primary
 @Entity
 @Table(name = "phones")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Phone {
+
+    public Phone(String make, String model, String cpu, Integer ram, Double price, User user) {
+        this.make = make;
+        this.model = model;
+        this.cpu = cpu;
+        this.ram = ram;
+        this.price = price;
+        this.user = user;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,66 +43,10 @@ public class Phone {
     private Integer ram;
 
     @Column(nullable = false)
-    private Integer price;
+    private Double price;
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     User user;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getMake() {
-        return make;
-    }
-
-    public void setMake(String make) {
-        this.make = make;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getCpu() {
-        return cpu;
-    }
-
-    public void setCpu(String cpu) {
-        this.cpu = cpu;
-    }
-
-    public Integer getRam() {
-        return ram;
-    }
-
-    public void setRam(Integer ram) {
-        this.ram = ram;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
