@@ -2,6 +2,7 @@ package com.alldata.mobsell.controller;
 
 import com.alldata.mobsell.dto.AuthRequest;
 import com.alldata.mobsell.dto.AuthResponse;
+import com.alldata.mobsell.dto.RegisterRequest;
 import com.alldata.mobsell.model.User;
 import com.alldata.mobsell.security.JwtService;
 import com.alldata.mobsell.service.UserService;
@@ -49,18 +50,22 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody User user) {
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
         try {
-            userService.loadUserByUsername(user.getUsername());
+            userService.loadUserByUsername(request.getUsername());
             return ResponseEntity.badRequest().build();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setEmail(request.getEmail());
 
-        if (user.getRole() == null) {
+        if (request.getRole() == null) {
             user.setRole("ROLE_USER");
+        } else {
+            user.setRole(request.getRole());
         }
 
         User savedUser = userService.save(user);

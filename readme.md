@@ -7,7 +7,7 @@ una plataforma para compra y venta de celulares, con pagos y catalogos incluidos
 * Controladores, Servicios, Repositorios.  ✅
 * Inyección de Dependencias (Spring).  ✅
 * Configuración de Beans (Spring).  ✅
-* Unit Testing (JUnit, Mockito).  
+* Unit Testing (JUnit, Mockito).  ✅
 * Manejo de Excepciones.  
 * Collections y Genéricos.  
 * Lambdas y Streams.  
