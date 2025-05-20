@@ -11,24 +11,20 @@ import java.util.List;
 
 @Entity
 @Table(name="provider")
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
 public class Provider {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="provider_id")
-    private Long prviderId;
+    @Column(name="id")
+    private Long id;
 
-    @Column(name="company_name")
+    @Column(name="companyName")
     @NotNull
     private String companyName;
 
     @Column(name="payments")
-    @NotNull
     @JsonIgnore
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Payment> payments;
 
     @Column(name="provider_product_name")
@@ -39,4 +35,44 @@ public class Provider {
     @NotNull
     private String description;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getProviderProductName() {
+        return providerProductName;
+    }
+
+    public void setProviderProductName(String providerProductName) {
+        this.providerProductName = providerProductName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Provider( String companyName, String providerProductName, String description) {
+        this.companyName = companyName;
+        this.providerProductName = providerProductName;
+        this.description = description;
+    }
+
+    public Provider() {
+    }
 }

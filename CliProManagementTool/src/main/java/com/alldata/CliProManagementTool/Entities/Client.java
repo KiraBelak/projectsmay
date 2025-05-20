@@ -1,39 +1,74 @@
 package com.alldata.CliProManagementTool.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name="client")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="client_id")
-    private Long clientId;
-
-    @Column(name="name")
+    @Column(name="id")
+    private Long id;
     private String name;
-
-    @Column(name="address")
     private String address;
-
-    @Column(name="email")
     private String email;
-
-    @Column(name="representative")
     private String representative;
 
-    @Column(name="payments")
-    private Payment payment;
-
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Payment> payments;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRepresentative() {
+        return representative;
+    }
+
+    public void setRepresentative(String representative) {
+        this.representative = representative;
+    }
+
+    public Client(String name, String address, String email, String representative) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.representative = representative;
+    }
+
+    public Client() {
+    }
 }
+
