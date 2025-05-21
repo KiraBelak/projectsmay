@@ -29,6 +29,10 @@ public class UserService {
         return userRepository.findById(integer);
     }
 
+    public Optional<User> findByName(String name) {
+        return userRepository.findByName(name);
+    }
+
     public void deleteById(Integer integer) {
         userRepository.deleteById(integer);
     }

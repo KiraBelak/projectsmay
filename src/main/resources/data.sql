@@ -1,8 +1,13 @@
--- USER
+-- USERS
 INSERT INTO SURVEY_USERS ("ID", "EMAIL", "NAME", "PASSWORD")
     VALUES
-    (1, null, 'admin', '123');
-    (2, null, 'emed', '123');
+    (1, null, 'admin', '$2a$10$5ER3ROQZl/SDl2JpG/icGOszQ/AvxbD.tXya6CIh/1.NwIVw0brr.'),
+    (2, null, 'emed', '$2a$10$5ER3ROQZl/SDl2JpG/icGOszQ/AvxbD.tXya6CIh/1.NwIVw0brr.');
+INSERT INTO USER_ROLES ("USER_ID", "ROLES")
+    VALUES
+     (1, 'ADMIN'),
+     (1, 'USER'),
+     (2, 'USER');
 
 -- SURVEY
 INSERT INTO SURVEY ("ID", "CODE", "TITLE", "USER_ID", "STATUS")
