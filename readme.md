@@ -7,7 +7,7 @@
 * Inyección de Dependencias (Spring).  ✓
 * Configuración de Beans (Spring).  
 * Unit Testing (JUnit, Mockito).  
-* Manejo de Excepciones.  
+* Manejo de Excepciones.  ✓
 * Collections y Genéricos.  
 * Lambdas y Streams.  
 * Patrón de Diseño (Factory, Repository, DTO).  ✓
