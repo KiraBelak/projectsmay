@@ -2,9 +2,9 @@
 
 ## Temas Aplicados
 
-* API REST con Spring Boot.  
-* Controladores, Servicios, Repositorios.  
-* Inyección de Dependencias (Spring).  
+* API REST con Spring Boot.  ✓
+* Controladores, Servicios, Repositorios.  ✓
+* Inyección de Dependencias (Spring).  ✓
 * Configuración de Beans (Spring).  
 * Unit Testing (JUnit, Mockito).  
 * Manejo de Excepciones.  
@@ -15,4 +15,4 @@
 * Programación Modular.  
 * Implementación de seguridad básica (Spring Security).  
 * Sockets
-* Programación Java API.
+* Programación Java API. ✓
