@@ -19,12 +19,8 @@ public class StoreController {
 
     @GetMapping("/store")
     public String showStore(Model model){
-//        List<Product> products = productsService.getAllProducts();
-
         model.addAttribute("products", productsService.getAllProducts());
-//        products.stream().forEach(product->{
-//            System.out.println(product.getName());
-//        });
+
         return "store";
     }
 }
