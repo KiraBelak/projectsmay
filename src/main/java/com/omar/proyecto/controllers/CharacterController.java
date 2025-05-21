@@ -1,32 +1,42 @@
 package com.omar.proyecto.controllers;
 
-
-import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.atomic.AtomicLong;
-
+import com.omar.proyecto.models.Character;
+import com.omar.proyecto.services.CharacterService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import com.omar.proyecto.models.Character;
-
+import java.util.List;
 
 @RestController
+@RequestMapping("/api/characters")
 public class CharacterController {
-  
-	private final AtomicLong counter = new AtomicLong();
 
-    @GetMapping("/char")
-    public Character getCharacters() {
-        return new Character(counter.incrementAndGet(), "terry", 40, null);
+    @Autowired
+    private CharacterService characterService;
+
+    @GetMapping
+    public List<Character> getAllCharacters() {
+        return characterService.getAllCharacters();
     }
 
-    @PostMapping("/char")
-    public ResponseEntity<Character> newCharacter(@RequestBody Character newCharacter){
-
-        return new ResponseEntity<>(newCharacter, HttpStatus.CREATED);
+    @GetMapping("/{id}")
+    public ResponseEntity<Character> getCharacterById(@PathVariable Long id) {
+        return characterService.getCharacterById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
-    
+
+    @PostMapping
+    public ResponseEntity<Character> createCharacter(@RequestBody Character character) {
+        Character saved = characterService.saveCharacter(character);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCharacter(@PathVariable Long id) {
+        characterService.deleteCharacter(id);
+        return ResponseEntity.noContent().build();
+    }
 }
