@@ -15,6 +15,7 @@ public class Survey {
     @Column(length = 200)
     private String title;
     private Integer userId;
+    @Enumerated(EnumType.STRING)
     private Status status;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_survey")
