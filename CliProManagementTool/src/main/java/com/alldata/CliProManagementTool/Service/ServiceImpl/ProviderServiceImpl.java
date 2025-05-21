@@ -1,5 +1,6 @@
 package com.alldata.CliProManagementTool.Service.ServiceImpl;
 
+import com.alldata.CliProManagementTool.DTO.ProviderDTO;
 import com.alldata.CliProManagementTool.Entities.Provider;
 import com.alldata.CliProManagementTool.Repository.ProviderRepository;
 import jakarta.annotation.PostConstruct;
@@ -40,4 +41,22 @@ public class ProviderServiceImpl {
     public List<Provider> getAllProviders(){
         return providerRepository.findAll();
     }
+
+    public Provider convertDtoToEntity(ProviderDTO providerDTO){
+        Provider provider = new Provider();
+        provider.setProviderProductName(providerDTO.getProviderProductName());
+        provider.setDescription(providerDTO.getDescription());
+        provider.setCompanyName(providerDTO.getCompanyName());
+        return provider;
+    }
+
+    public ProviderDTO convertEntityToDTO(Provider provider){
+        ProviderDTO providerDTO = new ProviderDTO();
+        providerDTO.setProviderProductName(provider.getProviderProductName());
+        providerDTO.setDescription(provider.getDescription());
+        providerDTO.setCompanyName(provider.getCompanyName());
+
+        return providerDTO;
+    }
+
 }

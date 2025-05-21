@@ -15,10 +15,12 @@ import java.util.List;
 public class ProviderDTO {
 
     private Long id;
+    @NotBlank(message = "Company name can't be null or empty")
     private String companyName;
     private List<Payment> payments;
+    @NotBlank(message = "Product name can't be null or empty")
     private String providerProductName;
-    @NotBlank(message = "Description cant be null")
+    @NotBlank(message = "Description can't be null or empty")
     private String description;
 
     public Long getId() {

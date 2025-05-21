@@ -35,11 +35,8 @@ public class ProviderController {
                 return ResponseEntity.badRequest().body(errores);
             }
 
-            Provider provider1 = new Provider();
-            provider1.setCompanyName(provider.getCompanyName());
-            provider1.setProviderProductName(provider.getProviderProductName());
-            provider1.setDescription(provider.getDescription());
-            Provider createdProvider = providerService.createProvider(provider1);
+            Provider createdProvider = providerService.convertDtoToEntity(provider);
+            providerService.createProvider(createdProvider);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch(Exception e){
             return ResponseEntity.badRequest().build();

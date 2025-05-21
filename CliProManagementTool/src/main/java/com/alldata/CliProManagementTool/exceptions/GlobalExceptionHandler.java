@@ -27,4 +27,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(doublePaymentException.class)
+    public ResponseEntity<MensajeExceptionDTO> conflictOnPayment(RuntimeException runtimeException){
+        MensajeExceptionDTO errorMessage = new MensajeExceptionDTO(runtimeException.getMessage(),HttpStatus.CONFLICT.value(), LocalDateTime.now());
+        return new ResponseEntity<>(errorMessage,HttpStatus.CONFLICT);
+    }
+
 }

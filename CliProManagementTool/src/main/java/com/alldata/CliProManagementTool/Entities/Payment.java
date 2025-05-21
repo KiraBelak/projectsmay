@@ -2,6 +2,7 @@ package com.alldata.CliProManagementTool.Entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,14 +10,14 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "payment")
-@Getter
-@Setter
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
+    @DecimalMin("0.0")
+    @Column(name="quantity")
     private double quantity;
 
     @NotNull
