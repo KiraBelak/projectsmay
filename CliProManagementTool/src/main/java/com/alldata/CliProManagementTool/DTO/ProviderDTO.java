@@ -5,21 +5,59 @@ package com.alldata.CliProManagementTool.DTO;/*
  */
 
 import com.alldata.CliProManagementTool.Entities.Payment;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ProviderDTO {
 
     private Long id;
     private String companyName;
     private List<Payment> payments;
     private String providerProductName;
+    @NotBlank(message = "Description cant be null")
     private String description;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
+    public String getProviderProductName() {
+        return providerProductName;
+    }
+
+    public void setProviderProductName(String providerProductName) {
+        this.providerProductName = providerProductName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

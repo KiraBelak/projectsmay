@@ -3,6 +3,8 @@ package com.alldata.CliProManagementTool.Service.ServiceImpl;
 import com.alldata.CliProManagementTool.Entities.Provider;
 import com.alldata.CliProManagementTool.Repository.ProviderRepository;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +24,8 @@ public class ProviderServiceImpl {
         System.out.println("Starting provider service...");
     }
 
-    public Provider createProvider(Provider provider){
+    @Transactional
+    public Provider createProvider(@Valid Provider provider){
         try{
             System.out.println("Creating new provider...");
             Provider savedProvider = providerRepository.save(provider);

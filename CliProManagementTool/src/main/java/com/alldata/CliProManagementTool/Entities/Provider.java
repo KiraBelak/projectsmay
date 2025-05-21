@@ -4,9 +4,12 @@ package com.alldata.CliProManagementTool.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -14,6 +17,7 @@ import java.util.List;
 @Table(name="provider")
 @Getter
 @Setter
+@Validated
 public class Provider {
 
     @Id
@@ -31,7 +35,7 @@ public class Provider {
     private List<Payment> payments;
 
     @Column(name="provider_product_name")
-    @NotNull
+    @NotBlank(message="Product name is mandatory")
     private String providerProductName;
 
     @Column(name="description")
