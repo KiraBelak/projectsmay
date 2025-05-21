@@ -2,7 +2,7 @@
 @baseUrl = http://localhost:2264
 @userCredentials = odette:garu
 @adminCredentials = admin:admin123
-@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnRvbmlvIiwiaWF0IjoxNzQ3ODM5NDkxLCJleHAiOjE3NDc5MjU4OTF9.FFLQeI6xYQ3cUJSFY69pPgJb1fGNM-a-OCGJOiXWGtM
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnRvbmlvIiwiaWF0IjoxNzQ3ODQ5ODgyLCJleHAiOjE3NDc5MzYyODJ9.9RpktpeyhneHALJsIu_pKJCL96IjkQ-pdy3SRZgY13M
 
 ###
 GET {{baseUrl}}/api/phones
@@ -26,10 +26,23 @@ POST {{baseUrl}}/api/phones
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
-{"make":"Samsung","model":"Galaxy S21","cpu":"Exynos 2100","ram":8,"price":799}
+{"make":"Samsung","model":"S25","cpu":"Exynos 9500","ram":16,"price":799}
 ###
 POST {{baseUrl}}/api/error
 Authorization: Bearer {{token}}
 Content-Type: text/plain
 
 This is an API error
+###
+GET {{baseUrl}}/api/phones/make/samsung
+Authorization: Bearer {{token}}
+###
+DELETE {{baseUrl}}/api/phones/user/2
+Authorization: Bearer {{token}}
+
+###
+PUT {{baseUrl}}/api/phones/7
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"make":"Samsung","model":"S25","cpu":"Exynos 9500","ram":32,"price":899}
