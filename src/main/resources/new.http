@@ -2,7 +2,7 @@
 @baseUrl = http://localhost:2264
 @userCredentials = odette:garu
 @adminCredentials = admin:admin123
-@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnRvbmlvIiwiaWF0IjoxNzQ3NzY1NTYzLCJleHAiOjE3NDc4NTE5NjN9.i_PxXfIYULiVVJ_PjutWDoPphHgydUhdlTxh4-7Wldw
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnRvbmlvIiwiaWF0IjoxNzQ3ODM5NDkxLCJleHAiOjE3NDc5MjU4OTF9.FFLQeI6xYQ3cUJSFY69pPgJb1fGNM-a-OCGJOiXWGtM
 
 ###
 GET {{baseUrl}}/api/phones
@@ -27,3 +27,9 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {"make":"Samsung","model":"Galaxy S21","cpu":"Exynos 2100","ram":8,"price":799}
+###
+POST {{baseUrl}}/api/error
+Authorization: Bearer {{token}}
+Content-Type: text/plain
+
+This is an API error
