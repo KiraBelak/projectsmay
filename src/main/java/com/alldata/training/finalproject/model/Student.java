@@ -64,37 +64,4 @@ public class Student {
         this.lastname = lastname;
         this.grade = grade;
     }
-
-    /*
-    public static class StudentBuilder {
-        private Long id;
-        private String firstname;
-        private String lastname;
-        private Integer grade;
- 
-        public StudentBuilder id(Long id) {
-            this.id = id;
-            return this;
-        }
- 
-        public StudentBuilder name(String firstname) {
-            this.firstname = firstname;
-            return this;
-        }
- 
-        public StudentBuilder description(String lastname) {
-            this.lastname = lastname;
-            return this;
-        }
- 
-        public StudentBuilder price(Integer grade) {
-            this.grade = grade;
-            return this;
-        }
- 
-        public Student build() {
-            return new Student(id, firstname, lastname, grade);
-        }
-    }
-    */
 }

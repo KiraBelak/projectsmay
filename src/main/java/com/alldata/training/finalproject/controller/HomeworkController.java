@@ -3,12 +3,20 @@ package com.alldata.training.finalproject.controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alldata.training.finalproject.exception.NoStudentFoundException;
+import com.alldata.training.finalproject.exception.NoTeacherFoundException;
+//import com.alldata.training.finalproject.exception.ErrorResponse;
+//import com.alldata.training.finalproject.exception.NoStudentFoundException;
+//import com.alldata.training.finalproject.exception.NoTeacherFoundException;
 import com.alldata.training.finalproject.model.Homework;
 import com.alldata.training.finalproject.model.Student;
 import com.alldata.training.finalproject.model.Teacher;
@@ -39,13 +47,12 @@ public class HomeworkController {
     @PostMapping("/create")
     public Homework create(@RequestBody Homework homework) {
         Student student = studentService.getStudentById(homework.getStudent().getId())
-            .orElseThrow(() -> new RuntimeException("Student was not found"));
+            .orElseThrow(() -> new NoStudentFoundException("Student with ID: " + homework.getStudent().getId() + " does not exist"));
 
         Teacher teacher = teacherService.getTeacherById(homework.getTeacher().getId())
-            .orElseThrow(() -> new RuntimeException("Teacher was not found"));
+            .orElseThrow(() -> new NoTeacherFoundException("Teacher with ID: " + homework.getTeacher().getId() + " does not exist"));
         
-        Homework newHomework = new Homework(homework.getDescription(), student, teacher, homework.getDeadline());
-        
+        Homework newHomework = new Homework(homework.getDescription(), student, teacher, homework.getDeadline());        
         return homeworkService.saveHomework(newHomework);
     }
 }

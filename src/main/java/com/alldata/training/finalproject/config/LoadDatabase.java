@@ -38,8 +38,8 @@ public class LoadDatabase {
             log.info("Inserting into Teachers " + teacherRepository.save(new Teacher("Omar", "Contreras")));
             log.info("Inserting into Teachers " + teacherRepository.save(new Teacher("Alberto", "Quezada")));
 
-            //log.info("Inserting into Teachers " + homeworkRepository.save(new Homework("Resumen pagina 50, 51 y 52 del libro de Historia", 
-            //    newStudent, newTeacher, LocalDate.of(2025,6,10))));           
+            log.info("Inserting into Teachers " + homeworkRepository.save(new Homework("Resumen pagina 50, 51 y 52 del libro de Historia", 
+                newStudent, newTeacher, LocalDate.of(2025,6,10))));           
         };
     }
 }

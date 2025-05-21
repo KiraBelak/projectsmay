@@ -54,31 +54,4 @@ public class Teacher {
         this.firstname = firstname;
         this.lastname = lastname;
     }
-
-    /*
-    public static class TeacherBuilder {
-        private Long id;
-        private String firstname;
-        private String lastname;
- 
-        public TeacherBuilder id(Long id) {
-            this.id = id;
-            return this;
-        }
- 
-        public TeacherBuilder name(String firstname) {
-            this.firstname = firstname;
-            return this;
-        }
- 
-        public TeacherBuilder description(String lastname) {
-            this.lastname = lastname;
-            return this;
-        }
-  
-        public Teacher build() {
-            return new Teacher(id, firstname, lastname);
-        }
-    }
-        */
 }
