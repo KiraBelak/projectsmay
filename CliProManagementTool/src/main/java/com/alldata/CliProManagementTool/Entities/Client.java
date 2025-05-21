@@ -1,7 +1,9 @@
 package com.alldata.CliProManagementTool.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -19,7 +21,22 @@ public class Client {
     private String representative;
 
     @OneToMany(mappedBy = "id", orphanRemoval = true , cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Payment> payments;
+
+    public Client(String name, String address, String email, String representative) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.representative = representative;
+    }
+
+    public void addPayment(Payment payment){
+        payments.add(payment);
+    }
+
+    public Client() {
+    }
 
     public Long getId() {
         return id;
@@ -61,14 +78,12 @@ public class Client {
         this.representative = representative;
     }
 
-    public Client(String name, String address, String email, String representative) {
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.representative = representative;
+    public List<Payment> getPayments() {
+        return payments;
     }
 
-    public Client() {
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 }
 

@@ -7,11 +7,7 @@ package com.alldata.CliProManagementTool.Service.ServiceImpl;/*
 import com.alldata.CliProManagementTool.Entities.Client;
 import com.alldata.CliProManagementTool.Repository.ClientRepository;
 import jakarta.annotation.PostConstruct;
-import jakarta.transaction.Transactional;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.List;
 import java.util.Optional;

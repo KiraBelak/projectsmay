@@ -1,16 +1,19 @@
 package com.alldata.CliProManagementTool.Entities;
 
+
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name="provider")
+@Getter
+@Setter
 public class Provider {
 
     @Id
@@ -35,6 +38,21 @@ public class Provider {
     @NotNull
     private String description;
 
+
+    public Provider(String companyName, String providerProductName, String description) {
+        this.companyName = companyName;
+        this.providerProductName = providerProductName;
+        this.description = description;
+    }
+
+
+    public void addPayment(Payment payment){
+        payments.add(payment);
+    }
+
+    public Provider() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -51,6 +69,14 @@ public class Provider {
         this.companyName = companyName;
     }
 
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
+
     public String getProviderProductName() {
         return providerProductName;
     }
@@ -65,14 +91,5 @@ public class Provider {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Provider(String companyName, String providerProductName, String description) {
-        this.companyName = companyName;
-        this.providerProductName = providerProductName;
-        this.description = description;
-    }
-
-    public Provider() {
     }
 }

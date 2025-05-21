@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/payments")
 public class PaymentController {
 
     private final PaymentServiceImpl paymentService;
@@ -32,7 +32,7 @@ public class PaymentController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Payment>> getAllPayments(@RequestParam Long id){
+    public ResponseEntity<List<Payment>> getAllPayments(){
         return ResponseEntity.ok(paymentService.getPaymentsById());
     }
 
