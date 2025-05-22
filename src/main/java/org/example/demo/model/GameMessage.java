@@ -2,7 +2,7 @@ package org.example.demo.model;
 
 
 import lombok.Data;
-import lombok.Getter;
+import org.example.demo.model.state.GameState;
 
 import java.time.Instant;
 

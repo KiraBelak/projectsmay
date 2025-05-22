@@ -2,7 +2,7 @@ package org.example.demo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.example.demo.domain.Fighter;
+import org.example.demo.model.state.PlayerState;
 
 @Getter
 @AllArgsConstructor

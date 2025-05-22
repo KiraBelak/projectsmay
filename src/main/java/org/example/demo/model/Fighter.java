@@ -1,9 +1,11 @@
-package org.example.demo.domain;
+package org.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 
 @Data
 @NoArgsConstructor
@@ -21,5 +23,5 @@ public class Fighter {
     float weight = 1;
     int jumpPower = 600;
     int speed = 200;
-    String imageUrl = "https://raw.githubusercontent.com/KiraBelak/projectsmay/rene-chavez/src/main/resources/static/img/char24.png";
+    String imageUrl = "img/char1.png";
 }

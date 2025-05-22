@@ -1,6 +1,8 @@
 package org.example.demo.controller;
 
-import org.example.demo.domain.Fighter;
+import jakarta.validation.Valid;
+import org.example.demo.dto.FighterDto;
+import org.example.demo.model.Fighter;
 import org.example.demo.service.FighterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,16 +29,19 @@ public class FighterController {
     }
 
     @PostMapping
-    public ResponseEntity<Fighter> addFighter(@RequestBody Fighter fighter) {
-        Fighter newFighter = fighterService.addFighter(fighter);
-        return new ResponseEntity<>(newFighter, HttpStatus.CREATED);
+    public ResponseEntity<FighterDto> addFighter(@RequestBody @Valid FighterDto fighter) {
+        //TODO: proper input DTO for fighter; use mapping library
+        Fighter newFighter = fighterService.addFighter(FighterDto.toEntity(fighter));
+        return new ResponseEntity<>(FighterDto.fromEntity(newFighter), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Fighter> getFighterById(@RequestBody Long id) {
+    public ResponseEntity<FighterDto> getFighterById(@PathVariable Long id) {
         Fighter fighter = fighterService.getFighterById(id);
+        String nullString = null;
+        nullString.trim();
         if (fighter != null) {
-            return ResponseEntity.ok(fighter);
+            return ResponseEntity.ok(FighterDto.fromEntity(fighter));
         } else {
             return ResponseEntity.notFound().build();
         }

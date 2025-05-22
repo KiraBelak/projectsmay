@@ -1,4 +1,4 @@
-package org.example.demo.domain;
+package org.example.demo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +28,35 @@ public class Stats {
 
     @Column(insertable = false, updatable = false)
     float accuracy;
+
+    public void incrementDamageDealt(int damage) {
+        this.damageDealt += damage;
+    }
+    public void incrementDamageTaken(int damage) {
+        this.damageTaken += damage;
+    }
+    public void incrementHitsDealt() {
+        this.hitsDealt += 1;
+    }
+    public void incrementHitsTaken() {
+        this.hitsTaken += 1;
+    }
+
+    public void incrementMatches() {
+        this.matches += 1;
+    }
+
+    public void incrementKos() {
+        this.kos += 1;
+    }
+
+    public void incrementDefeats() {
+        this.defeats += 1;
+    }
+    public void incrementAttacks() {
+        this.attacks += 1;
+    }
+
 
     public Stats(String name) {
         this();

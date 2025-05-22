@@ -1,6 +1,6 @@
 package org.example.demo.controller;
 
-import org.example.demo.domain.Stats;
+import org.example.demo.model.Stats;
 import org.example.demo.service.StatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

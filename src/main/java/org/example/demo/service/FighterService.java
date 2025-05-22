@@ -1,10 +1,11 @@
 package org.example.demo.service;
 
-import org.example.demo.domain.Fighter;
+import org.example.demo.model.Fighter;
 import org.example.demo.repository.FighterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

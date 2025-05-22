@@ -1,10 +1,12 @@
 package org.example.demo.service;
 
-import org.example.demo.domain.Fighter;
-import org.example.demo.domain.Scene;
-import org.example.demo.domain.Stats;
+import org.example.demo.model.Fighter;
+import org.example.demo.model.Scene;
+import org.example.demo.model.Stats;
 import org.example.demo.model.*;
 import org.example.demo.model.GameMessage.MessageType;
+import org.example.demo.model.state.GameState;
+import org.example.demo.model.state.PlayerState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
@@ -45,16 +47,11 @@ public class GameService {
 
     private final StatsService statsService;
 
-    private final Map<String, Stats> statsCache = new ConcurrentHashMap<>();
-
-    private Stats statsOf(Player player) {
-        // load once from DB or create empty
-        return statsCache.computeIfAbsent(player.getName(),
-                n -> statsService.getStatsByName(n) != null
-                        ? statsService.getStatsByName(n)
-                        : new Stats(n));
-    }
-
+    /**
+     * Adds the player input to the keyStates map.
+     * Creates a new player if it doesn't exist yet.
+     * @param msg the player input message
+     */
     public void processInput(GameMessage msg) {
         if (msg.getType() != MessageType.INPUT) return;
 
@@ -68,8 +65,8 @@ public class GameService {
                             new PlayerState((float) (Math.random() * 500), (float) (Math.random() * 300)),// spawn point
                             fighter));
             p.getState().setFighterId(fighter.getId());
-            statsOf(p).setMatches(statsOf(p).getMatches() + 1);
-            statsOf(p).setLastFighter(fighter.getImageUrl());
+            statsService.statsOf(p).incrementMatches();
+            statsService.statsOf(p).setLastFighter(fighter.getImageUrl());
 
             // dummy player for testing
             var cpu = players.computeIfAbsent(msg.getPlayer() + "_cpu",
@@ -77,8 +74,8 @@ public class GameService {
                             new PlayerState(p.getState().getX() + 50, (float) (Math.random() * 300)),
                             new Fighter()));
             cpu.getState().setFighterId(fighter.getId());
-            statsOf(cpu).setMatches(statsOf(cpu).getMatches() + 1);
-            statsOf(cpu).setLastFighter(fighter.getImageUrl());
+            statsService.statsOf(cpu).incrementMatches();
+            statsService.statsOf(cpu).setLastFighter(fighter.getImageUrl());
 
             keyStates.computeIfAbsent(msg.getPlayer(), k -> ConcurrentHashMap.newKeySet());
         }
@@ -90,6 +87,11 @@ public class GameService {
     }
 
 
+    /**
+     * Processes attack collisions in the current frame.
+     * @param keys Keys pressed by the player.
+     * @param p1 The player who is attacking.
+     */
     void attackTick(Set<String> keys, Player p1) {
         var ps = p1.getState();
         int attackCooldown = p1.getFighter().getAttack().getCooldown();
@@ -97,7 +99,7 @@ public class GameService {
             ps.setHitCooldown(ps.getHitCooldown() + 1);
         }
         final int attackSize = p1.getFighter().getAttack().getSize();
-        // Attack
+
         if (ps.getAttackFrame() > 0) {
             //attack sprite is left or right of player
             float attackSpriteX = ps.isFacingRight() ? ps.getX() + attackSize : ps.getX() - attackSize;
@@ -105,31 +107,31 @@ public class GameService {
             Rectangle attackBounds = new Rectangle((int)attackSpriteX, (int)ps.getY(), attackSize, attackSize);
             // check collision with other players. Hit players modify their vx and vy.
             players.values().parallelStream()
-                    .filter(other -> !other.getState().equals(ps))
-                    .filter(other -> other.getState().getHitCooldown() < 0 || other.getState().getHitCooldown() > 6) // some grace period between hits
-                    .filter(other -> attackBounds.intersects(
-                            other.getState().getX(), other.getState().getY(), attackSize, attackSize))
-                    .forEach(p2 -> {
-                        var p2s = p2.getState();
-                        var f1 = p1.getFighter();
-                        var f2 = p2.getFighter();
-                        var kb = f1.getAttack().getKnockback();
-                        var fkb = kb * (p2s.getDamage() / 5 + 1) / f2.getWeight();
-                        p2s.setVx(p2s.getVx() + (ps.isFacingRight() ? fkb : -fkb));
-                        p2s.setVy(p2s.getVy() - (100 + fkb) / 2);
-                        p2s.setHitCooldown(0);
-                        p2s.setDamage(p2s.getDamage() + f1.getAttack().getDamage());
-                        //stats
-                        statsOf(p1).setHitsDealt(statsOf(p1).getHitsDealt() + 1);
-                        statsOf(p2).setHitsTaken(statsOf(p2).getHitsTaken() + 1);
-                        statsOf(p1).setDamageDealt(statsOf(p1).getDamageDealt() + f1.getAttack().getDamage());
-                        statsOf(p2).setDamageTaken(statsOf(p2).getDamageTaken() + f1.getAttack().getDamage());
-                        statsOf(p2).setLastHitBy(p1.getName());
-                    });
+                .filter(other -> !other.getState().equals(ps))
+                .filter(other -> other.getState().getHitCooldown() < 0 || other.getState().getHitCooldown() > 6) // some grace period between hits
+                .filter(other -> attackBounds.intersects(
+                        other.getState().getX(), other.getState().getY(), attackSize, attackSize))
+                .forEach(p2 -> {
+                    var p2s = p2.getState();
+                    var f1 = p1.getFighter();
+                    var f2 = p2.getFighter();
+                    var kb = f1.getAttack().getKnockback();
+                    var fkb = kb * (p2s.getDamage() / 5 + 1) / f2.getWeight();
+                    p2s.setVx(p2s.getVx() + (ps.isFacingRight() ? fkb : -fkb));
+                    p2s.setVy(p2s.getVy() - (100 + fkb) / 2);
+                    p2s.setHitCooldown(0);
+                    p2s.setDamage(p2s.getDamage() + f1.getAttack().getDamage());
+                    //stats
+                    statsService.statsOf(p1).incrementHitsDealt();
+                    statsService.statsOf(p2).incrementHitsTaken();
+                    statsService.statsOf(p1).incrementDamageDealt(f1.getAttack().getDamage());
+                    statsService.statsOf(p2).incrementDamageTaken(f1.getAttack().getDamage());
+                    statsService.statsOf(p2).setLastHitBy(p1.getName());
+                });
         }
         else if (keys.contains("ATTACK") && ps.getAttackFrame() <= -attackCooldown / 2) {
             ps.setAttackFrame(attackCooldown / 2);
-            statsOf(p1).setAttacks(statsOf(p1).getAttacks() + 1);
+            statsService.statsOf(p1).incrementAttacks();
         }
         if (ps.getAttackFrame() > -attackCooldown) {
             ps.setAttackFrame(ps.getAttackFrame() - 1);
@@ -153,52 +155,56 @@ public class GameService {
 
         ps.setOnGround(false);
 
-        for (Rectangle block : scene.getBlocks()) {
+        // check for player collisions with scene blocks
+        scene.getBlocks().parallelStream()
+            .filter(block -> playerRect.intersects(block))
+            .forEach(block -> {
+                // AABB resolution
+                float dxLeft   = block.x + block.width  - playerRect.x;          // move player right
+                float dxRight  = block.x - (playerRect.x + playerRect.width);    // move player left
+                float dyUp     = block.y - (playerRect.y + playerRect.height);   // move player up
+                float dyDown   = block.y + block.height - playerRect.y;          // move player down
 
-            if (!playerRect.intersects(block)) continue;
-
-            // AABB resolution
-            float dxLeft   = block.x + block.width  - playerRect.x;          // move player right
-            float dxRight  = block.x - (playerRect.x + playerRect.width);    // move player left
-            float dyUp     = block.y - (playerRect.y + playerRect.height);   // move player up
-            float dyDown   = block.y + block.height - playerRect.y;          // move player down
-
-            // pick the axis with the smallest penetration
-            float absX = Math.abs(dxLeft) < Math.abs(dxRight) ? dxLeft : dxRight;
-            float absY = Math.abs(dyUp)   < Math.abs(dyDown)  ? dyUp   : dyDown ;
-
-            if (Math.abs(absX) < Math.abs(absY)) { // is colliding on x
-                ps.setX(ps.getX() + absX);
-                ps.setVx(0);
-            } else { // is colliding on y
-                ps.setY(ps.getY() + absY);
-                ps.setVy(0);
-                if (absY < 0) { // player landed on top of a block
-                    ps.setOnGround(true);
+                // pick the axis with the smallest penetration
+                float absX = Math.abs(dxLeft) < Math.abs(dxRight) ? dxLeft : dxRight;
+                float absY = Math.abs(dyUp) < Math.abs(dyDown) ? dyUp : dyDown;
+                if (Math.abs(absX) < Math.abs(absY)) { // is colliding on x
+                    ps.setX(ps.getX() + absX);
+                    ps.setVx(0);
+                } else { // is colliding on y
+                    ps.setY(ps.getY() + absY);
+                    ps.setVy(0);
+                    if (absY < 0) { // player landed on top of a block
+                        ps.setOnGround(true);
+                    }
                 }
-            }
-            playerRect.setLocation(Math.round(ps.getX()), Math.round(ps.getY()));
-        }
+                playerRect.setLocation(Math.round(ps.getX()), Math.round(ps.getY()));
+            });
+
         // check if player is outside the scene
         if (ps.getX() < 0 || ps.getX() > scene.getWidth() || ps.getY() < 0 || ps.getY() > scene.getHeight()) {
-            ps.setX(400);
+            ps.setX((float)Math.random() * 500);
             ps.setY(50);
             ps.setVx(0);
             ps.setVy(0);
             ps.setDamage(0);
             playerRect.setLocation(Math.round(ps.getX()), Math.round(ps.getY()));
             //stats
-            statsOf(py).setDefeats( statsOf(py).getDefeats() + 1);
-            var py2 = players.get(statsOf(py).getLastHitBy());
+            statsService.statsOf(py).incrementDefeats();
+            var py2 = players.get(statsService.statsOf(py).getLastHitBy());
             if (py2 != null) {
-                statsOf(py2).setKos(statsOf(py2).getKos() + 1);
+                statsService.statsOf(py2).incrementKos();
             }
         }
     }
 
 
-    //  game-loop
-    @Scheduled(fixedRate = 33) // 33ms ~= 30 fps
+    /**
+     * Main game-loop.
+     * Calculates the game state, which is player positions and collisions, sends it to the clients.
+     * Called every 33ms (30 fps).
+     */
+    @Scheduled(fixedRate = 33)
     public void tick() {
 
         float dt = 0.033f;
@@ -254,7 +260,7 @@ public class GameService {
     @Async
     @Scheduled(fixedRate = 3_000)
     void flushStats() {
-        statsCache.values().forEach(statsService::saveStats);
+        statsService.flushCache();
     }
 
 }
