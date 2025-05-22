@@ -17,7 +17,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<MensajeExceptionDTO> executionTimeError(RuntimeException runtimeException){
         MensajeExceptionDTO errorMessage = new MensajeExceptionDTO(runtimeException.getMessage(), HttpStatus.BAD_REQUEST.value(), LocalDateTime.now());
-
         errorMessage.setMessage("Error during runtime: "+ errorMessage.getMessage());
         return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
     }

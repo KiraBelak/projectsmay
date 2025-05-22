@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentServiceImpl {
@@ -33,7 +34,7 @@ public class PaymentServiceImpl {
     public void start(){
         System.out.println("Starting payment service...");
     }
-
+    //! Create
     public Payment createPayment(@Valid Payment payment){
         try{
             System.out.println("Creating new payment...");
@@ -45,15 +46,55 @@ public class PaymentServiceImpl {
             return null;
         }
     }
-
+    //! Read
+    public List<PaymentDTO> getAllPayments(){
+        return paymentRepository.findAll().stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
+    //! Read
     public List<Payment> getPaymentsById(){
         return paymentRepository.findAll();
+    }
+
+    //! Delete
+    public void DeletePayment(Long id){
+       if(!paymentRepository.existsById(id)){
+           throw new NotFoundException("Payment not found by id, can't delete");
+       }
+       paymentRepository.deleteById(id);
+    }
+
+    public List<PaymentDTO> searchPaymentsByProductName(String productName){
+        List<PaymentDTO> collect = paymentRepository.searchPaymentByCompanyName(productName).stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+        return collect;
+    }
+
+    public List<PaymentDTO> searchSongsByTitle(String companyName) {
+        return paymentRepository.searchPaymentByCompanyName(companyName).stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<PaymentDTO> searchPaymentsByClientId(Long id){
+        return paymentRepository.searchPaymentByClientId(id).stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<PaymentDTO> searchPaymentsByProviderId(Long id){
+        return paymentRepository.searchPaymentByProviderId(id).stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
     }
 
     public Payment convertDTOToEntity(PaymentDTO paymentDTO){
         Payment payment = new Payment();
         payment.setPaymentDescriptions(paymentDTO.getPaymentDescriptions());
         payment.setQuantity(paymentDTO.getQuantity());
+        //? Validate if the client and the provider are both associated to the payment.
         if(paymentDTO.getClientId() != null && paymentDTO.getProviderId() != null){
             throw new DoublePaymentException("A payment can't be assigned to a client and a provider at the same time");
         }
@@ -61,7 +102,8 @@ public class PaymentServiceImpl {
             Client client = clientRepository.findById(paymentDTO.getClientId())
                     .orElseThrow(
                             () -> new NotFoundException("Client not found with current id:" + paymentDTO.getClientId()));
-//            payment.setClient(client);
+            payment.setClient(client);
+            //? Check if the provider has been associated. as the client is already been associated.
             if(paymentDTO.getProviderId() == null){
                 System.out.println("No provider id set, correct objetc structure");
             }
@@ -70,11 +112,11 @@ public class PaymentServiceImpl {
             Provider provider = providerRepository.findById(paymentDTO.getProviderId())
                     .orElseThrow(
                             () -> new NotFoundException("Provider not found with current id:" + paymentDTO.getClientId()));
+            //? Check if the client is associated. as the provider is already been associated.
                 if(paymentDTO.getClientId() == null){
                     System.out.println("No client id set, correct object structure");
                 }
         }
-
         return payment;
     }
 
@@ -88,14 +130,12 @@ public class PaymentServiceImpl {
         if(payment.getClient() != null && payment.getProvider() != null){
             throw new DoublePaymentException("CONFLICT! A payment cannot be tied to both a client and a provider at the same time");
         }
-
         //? Validation for client not found by id
         if(payment.getClient() != null){
             Client client = clientRepository.findById(paymentDTO.getClientId())
                     .orElseThrow(
                             () -> new NotFoundException("Client not found by id: "+ paymentDTO.getClientId()));
         }
-
         //? Validation for provider not found by id
         if(payment.getProvider() != null){
             Provider provider = providerRepository.findById(paymentDTO.getProviderId())
@@ -104,7 +144,6 @@ public class PaymentServiceImpl {
         }
         paymentDTO.setClientId(payment.getClient().getId());
         paymentDTO.setProviderId(payment.getProvider().getId());
-
         return paymentDTO;
     }
 
