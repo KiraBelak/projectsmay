@@ -5,14 +5,15 @@
 * API REST con Spring Boot.  ✓
 * Controladores, Servicios, Repositorios.  ✓
 * Inyección de Dependencias (Spring).  ✓
-* Configuración de Beans (Spring).  
-* Unit Testing (JUnit, Mockito).  
+* Programación Java API. ✓
 * Manejo de Excepciones.  ✓
-* Collections y Genéricos.  
-* Lambdas y Streams.  
 * Patrón de Diseño (Factory, Repository, DTO).  ✓
+* Collections y Genéricos.  
+* Lambdas y Streams.
 * Corrientes y Corrientes Paralelas (Java Streams).  
 * Programación Modular.  
 * Implementación de seguridad básica (Spring Security).  
 * Sockets
-* Programación Java API. ✓
+* Configuración de Beans (Spring).  
+* Unit Testing (JUnit, Mockito).  
+
