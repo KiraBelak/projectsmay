@@ -9,8 +9,8 @@
 * Manejo de Excepciones.  ✓
 * Patrón de Diseño (Factory, Repository, DTO).  ✓
 * Collections y Genéricos.  ✓
-* Lambdas y Streams.
-* Corrientes y Corrientes Paralelas (Java Streams).  
+* Lambdas y Streams. ✓
+* Corrientes y Corrientes Paralelas (Java Streams).  ✓
 * Programación Modular.  
 * Implementación de seguridad básica (Spring Security).  
 * Sockets
