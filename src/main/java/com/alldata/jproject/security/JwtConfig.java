@@ -28,15 +28,16 @@ public class JwtConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/h2-console/**", "/api/auth/**", "/oauth2**").permitAll()
-                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/api/user/**").hasRole("USER")
-                                .requestMatchers("/api/**").authenticated()
+                                .requestMatchers("/", "/login").permitAll()
+//                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+//                                .requestMatchers("/api/user/**").hasRole("USER")
+//                                .requestMatchers("/api/**").authenticated()
                                 .anyRequest().authenticated())
-                .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/store")
-                        //TODO agregar pagina de error
-                        .failureUrl("/"))
+//                .oauth2Login(oauth2 -> oauth2
+//                        .loginPage("/login")
+//                        .defaultSuccessUrl("/store")
+//                        //TODO agregar pagina de error
+//                        .failureUrl("/"))
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/store")

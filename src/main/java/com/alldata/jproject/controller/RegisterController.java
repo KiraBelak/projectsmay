@@ -1,12 +1,9 @@
 package com.alldata.jproject.controller;
 
 import com.alldata.jproject.entities.User;
-import com.alldata.jproject.models.UserDTO;
 import com.alldata.jproject.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller

@@ -2,7 +2,6 @@ package com.alldata.jproject.service.impl;
 
 import com.alldata.jproject.entities.Order;
 import com.alldata.jproject.entities.User;
-import com.alldata.jproject.repositories.OrderRepository;
 import com.alldata.jproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
