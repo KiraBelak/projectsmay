@@ -1,0 +1,117 @@
+type: collection.insomnia.rest/5.0
+name: Scratch Pad
+meta:
+  id: wrk_scratchpad
+  created: 1747680677770
+  modified: 1747680677770
+collection:
+  - url: localhost:8080/api/fighters
+    name: Create fighter
+    meta:
+      id: req_5dce49abb7ce4b0582aae42cb62a9b0c
+      created: 1747680821008
+      modified: 1747863868934
+      isPrivate: false
+      sortKey: -1747680821008
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        		"attack": {
+        			"size": 32,
+        			"cooldown": 10,
+        			"damage": 7,
+        			"knockback": 80
+        		},
+        		"weight": 0.0,
+        		"jumpPower": 400,
+        		"speed": 200,
+        		"imageUrl": "/img/char26.png"
+        	}
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.1.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: localhost:8080/api/fighters
+    name: Get all fighters
+    meta:
+      id: req_a5ec8653f1174e5fb16bb0e6a342367d
+      created: 1747680940337
+      modified: 1747680991521
+      isPrivate: false
+      sortKey: -1747680940337
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.1.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: localhost:8080/api/fighters/99
+    name: Get non-existing fighter
+    meta:
+      id: req_e5e9af6c09e24728b39620abf93fc05c
+      created: 1747698782780
+      modified: 1747872049419
+      isPrivate: false
+      sortKey: -1747698782780
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.1.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/fighters/1
+    name: Get fighter by ID
+    meta:
+      id: req_98134492f44545f3891609decb17d482
+      created: 1747872028862
+      modified: 1747872061473
+      isPrivate: false
+      sortKey: -1747872028862
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.1.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1747680688068
+    modified: 1747680688068
+environments:
+  name: Base Environment
+  meta:
+    id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1747680687982
+    modified: 1747680687982
+    isPrivate: false
