@@ -14,6 +14,6 @@
 * Programación Modular.  
 * Implementación de seguridad básica (Spring Security).  
 * Sockets
-* Configuración de Beans (Spring).  
+* Configuración de Beans (Spring). ✓
 * Unit Testing (JUnit, Mockito).  
 
