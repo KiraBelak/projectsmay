@@ -2,9 +2,9 @@ package com.alldata.CliProManagementTool.Controllers;
 
 import com.alldata.CliProManagementTool.DTO.PaymentDTO;
 import com.alldata.CliProManagementTool.Entities.Payment;
-import com.alldata.CliProManagementTool.Repository.PaymentRepository;
+import com.alldata.CliProManagementTool.Repository.ProviderRepository;
 import com.alldata.CliProManagementTool.Service.ServiceImpl.PaymentServiceImpl;
-import lombok.Getter;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -21,27 +21,19 @@ import java.util.stream.Collectors;
 public class PaymentController {
 
     private final PaymentServiceImpl paymentService;
+    private final ProviderRepository providerRepository;
 
-    public PaymentController(PaymentServiceImpl paymentService) {
+    public PaymentController(PaymentServiceImpl paymentService,
+                             ProviderRepository providerRepository) {
         this.paymentService = paymentService;
+        this.providerRepository = providerRepository;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> createPayment(@RequestBody @Validated PaymentDTO paymentDTO, BindingResult bindingResult){
-        try{
-            if(bindingResult.hasErrors()){
-                List<String> errores = bindingResult.getFieldErrors()
-                        .stream()
-                        .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
-                        .collect(Collectors.toList());
-            }
+    public ResponseEntity<?> createPayment(@RequestBody @Valid PaymentDTO paymentDTO){
             Payment createdPayment = paymentService.convertDTOToEntity(paymentDTO);
             paymentService.createPayment(createdPayment);
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        }catch(Exception e){
-            return ResponseEntity.unprocessableEntity().build();
-
-        }
     }
 
     @GetMapping("/all")

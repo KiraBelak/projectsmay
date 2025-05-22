@@ -62,4 +62,7 @@ public class ProviderDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public ProviderDTO() {
+    }
 }

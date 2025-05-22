@@ -27,14 +27,6 @@ public class ProviderController {
     @PostMapping("/add")
     public ResponseEntity<?> createProvider(@RequestBody @Valid ProviderDTO provider, BindingResult bindingResult){
         try{
-            if(bindingResult.hasErrors()){
-                List<String> errores = bindingResult.getFieldErrors()
-                        .stream()
-                        .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
-                        .collect(Collectors.toList());
-                return ResponseEntity.badRequest().body(errores);
-            }
-
             Provider createdProvider = providerService.convertDtoToEntity(provider);
             providerService.createProvider(createdProvider);
             return ResponseEntity.status(HttpStatus.CREATED).build();

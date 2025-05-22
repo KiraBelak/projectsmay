@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class PaymentDTO {
 
     private Long id;
-    @DecimalMin("0.0")
+    @DecimalMin(value = "0.0", message = "The value must be over 0" )
     private double quantity;
 
     private Long clientId;
@@ -61,5 +61,8 @@ public class PaymentDTO {
 
     public void setPaymentDescriptions(String paymentDescriptions) {
         this.paymentDescriptions = paymentDescriptions;
+    }
+
+    public PaymentDTO() {
     }
 }
