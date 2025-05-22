@@ -1,6 +1,7 @@
 package com.omar.proyecto.controllers;
 
 import com.omar.proyecto.models.Character;
+import com.omar.proyecto.dto.CharacterDTO;
 import com.omar.proyecto.services.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,8 @@ public class CharacterController {
     }
 
     @PostMapping
-    public ResponseEntity<Character> createCharacter(@RequestBody Character character) {
-        Character saved = characterService.saveCharacter(character);
+    public ResponseEntity<Character> createCharacter(@RequestBody CharacterDTO characterDTO) {
+        Character saved = characterService.saveCharacterDTO(characterDTO);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 

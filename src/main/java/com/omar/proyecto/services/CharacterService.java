@@ -2,6 +2,7 @@ package com.omar.proyecto.services;
 
 import com.omar.proyecto.models.Character;
 import com.omar.proyecto.repository.CharacterRepository;
+import com.omar.proyecto.dto.CharacterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,11 @@ public class CharacterService {
         return characterRepository.findById(id);
     }
 
-    public Character saveCharacter(Character character) {
+    public Character saveCharacterDTO(CharacterDTO dto) {
+        Character character = new Character();
+        character.setName(dto.getName());
+        character.setAge(dto.getAge());
+        character.setMovements(dto.getMovements());
         Character saved = characterRepository.save(character);
         messagingTemplate.convertAndSend("/topic/characters", saved);
         return saved;
