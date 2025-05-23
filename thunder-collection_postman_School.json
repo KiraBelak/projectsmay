@@ -1,0 +1,254 @@
+{
+    "info": {
+        "_postman_id": "c5743a8b-1117-4d02-b0e4-257b62dbd088",
+        "name": "School",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Get All Students",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8080/api/students/getall",
+                    "path": [
+                        "api",
+                        "students",
+                        "getall"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Create Student",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:8080/api/students/create",
+                    "path": [
+                        "api",
+                        "students",
+                        "create"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"id\": null,\n  \"firstname\": \"Maria Sol\",\n  \"lastname\": \"Lopez\",\n  \"grade\": 2\n}"
+                }
+            }
+        },
+        {
+            "name": "Get All Teachers",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8080/api/teachers/getall",
+                    "path": [
+                        "api",
+                        "teachers",
+                        "getall"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Create Teacher",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:8080/api/teachers/create",
+                    "path": [
+                        "api",
+                        "teachers",
+                        "create"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"id\": null,\n  \"firstname\": \"Roberto\",\n  \"lastname\": \"Gonzalez\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Get All Homeworks",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:8080/api/homeworks/getall",
+                    "path": [
+                        "api",
+                        "homeworks",
+                        "getall"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Create Homework",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:8080/api/homeworks/create",
+                    "path": [
+                        "api",
+                        "homeworks",
+                        "create"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "  {\n    \"id\": null,\n    \"description\": \"Tarea 2\",\n    \"student\": {\n      \"id\": 2\n    },\n    \"teacher\": {\n      \"id\": 2\n    },\n    \"deadline\": \"2025-05-19\",\n    \"delivered\": \"false\"\n  }"
+                }
+            }
+        },
+        {
+            "name": "NewNotification",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:8080/api/notifications/send",
+                    "path": [
+                        "api",
+                        "notifications",
+                        "send"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n    \"message\": \"El viernes 30 no hay clases! x2\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Login",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:8080/login",
+                    "path": [
+                        "login"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080"
+                },
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer c",
+                        "disabled": true
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\"\n}\n"
+                }
+            }
+        }
+    ]
+}

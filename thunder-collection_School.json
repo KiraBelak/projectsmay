@@ -1,0 +1,173 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "School",
+    "collectionId": "7549838e-e598-44b2-b1f5-86ed987f954c",
+    "dateExported": "2025-05-23T15:00:28.699Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "e36fd980-4d4c-49a1-b8e9-2e4667e62b0c",
+            "colId": "7549838e-e598-44b2-b1f5-86ed987f954c",
+            "containerId": "",
+            "name": "Get All Students",
+            "url": "http://localhost:8080/api/students/getall",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2025-05-19T21:13:32.882Z",
+            "modified": "2025-05-23T06:24:21.834Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                }
+            ]
+        },
+        {
+            "_id": "93463736-6499-4969-a10e-9bdc77cdaa3b",
+            "colId": "7549838e-e598-44b2-b1f5-86ed987f954c",
+            "containerId": "",
+            "name": "Create Student",
+            "url": "http://localhost:8080/api/students/create",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2025-05-19T21:14:25.122Z",
+            "modified": "2025-05-23T06:25:45.633Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": null,\n  \"firstname\": \"Maria Sol\",\n  \"lastname\": \"Lopez\",\n  \"grade\": 2\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "03dc47ae-68ba-41e5-beb8-b09a887e31a9",
+            "colId": "7549838e-e598-44b2-b1f5-86ed987f954c",
+            "containerId": "",
+            "name": "Get All Teachers",
+            "url": "http://localhost:8080/api/teachers/getall",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2025-05-19T21:19:58.153Z",
+            "modified": "2025-05-23T06:27:05.279Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                }
+            ]
+        },
+        {
+            "_id": "ab2e54c0-79f2-4795-a6ae-ce2fb226c74a",
+            "colId": "7549838e-e598-44b2-b1f5-86ed987f954c",
+            "containerId": "",
+            "name": "Create Teacher",
+            "url": "http://localhost:8080/api/teachers/create",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2025-05-19T21:20:30.763Z",
+            "modified": "2025-05-23T06:27:09.417Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": null,\n  \"firstname\": \"Roberto\",\n  \"lastname\": \"Gonzalez\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ed40a376-a3f3-4060-8c91-267819e35375",
+            "colId": "7549838e-e598-44b2-b1f5-86ed987f954c",
+            "containerId": "",
+            "name": "Get All Homeworks",
+            "url": "http://localhost:8080/api/homeworks/getall",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2025-05-19T21:23:15.934Z",
+            "modified": "2025-05-23T06:27:12.615Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                }
+            ]
+        },
+        {
+            "_id": "4e46c046-1016-4709-b365-8fb9591b7a7f",
+            "colId": "7549838e-e598-44b2-b1f5-86ed987f954c",
+            "containerId": "",
+            "name": "Create Homework",
+            "url": "http://localhost:8080/api/homeworks/create",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2025-05-19T21:23:55.773Z",
+            "modified": "2025-05-23T06:27:16.204Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "  {\n    \"id\": null,\n    \"description\": \"Tarea 2\",\n    \"student\": {\n      \"id\": 2\n    },\n    \"teacher\": {\n      \"id\": 2\n    },\n    \"deadline\": \"2025-05-19\",\n    \"delivered\": \"false\"\n  }",
+                "form": []
+            }
+        },
+        {
+            "_id": "edb6529e-5ee2-4f6a-9382-efd9f22f807c",
+            "colId": "7549838e-e598-44b2-b1f5-86ed987f954c",
+            "containerId": "",
+            "name": "NewNotification",
+            "url": "http://localhost:8080/api/notifications/send",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2025-05-21T17:20:48.614Z",
+            "modified": "2025-05-23T06:27:19.742Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk4MTMzNiwiZXhwIjoxNzQ3OTg4NTM2fQ.2Fep5iV6vv-0YTrONHq5d9wwKOBYaHXLqzEPAX9FAy0jBI-vuGb2qkr6JcofB3EF"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"message\": \"El viernes 30 no hay clases! x2\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "3155d534-4358-4c59-83d7-e2e881b2e0c0",
+            "colId": "7549838e-e598-44b2-b1f5-86ed987f954c",
+            "containerId": "",
+            "name": "Login",
+            "url": "http://localhost:8080/login",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2025-05-22T15:51:51.103Z",
+            "modified": "2025-05-23T06:34:36.028Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer c",
+                    "isDisabled": true
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\"\n}\n",
+                "form": []
+            }
+        }
+    ],
+    "ref": "zeMEjq5PG2AWCpI27M0sggYNS6rcpXd7vJFx1gG9F4o7E0_WjjEuuQCxSODrRLlh1lI-T4eEUwY3o_kCsxfmyg"
+}
