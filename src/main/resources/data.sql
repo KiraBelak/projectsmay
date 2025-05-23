@@ -1,8 +1,8 @@
 -- USERS
-INSERT INTO SURVEY_USERS ("ID", "EMAIL", "NAME", "PASSWORD")
+INSERT INTO SURVEY_USERS ("EMAIL", "NAME", "PASSWORD")
     VALUES
-    (1, null, 'admin', '$2a$10$5ER3ROQZl/SDl2JpG/icGOszQ/AvxbD.tXya6CIh/1.NwIVw0brr.'),
-    (2, null, 'emed', '$2a$10$5ER3ROQZl/SDl2JpG/icGOszQ/AvxbD.tXya6CIh/1.NwIVw0brr.');
+    (null, 'admin', '$2a$10$5ER3ROQZl/SDl2JpG/icGOszQ/AvxbD.tXya6CIh/1.NwIVw0brr.'),
+    (null, 'emed', '$2a$10$5ER3ROQZl/SDl2JpG/icGOszQ/AvxbD.tXya6CIh/1.NwIVw0brr.');
 INSERT INTO USER_ROLES ("USER_ID", "ROLES")
     VALUES
      (1, 'ADMIN'),
@@ -10,13 +10,13 @@ INSERT INTO USER_ROLES ("USER_ID", "ROLES")
      (2, 'USER');
 
 -- SURVEY
-INSERT INTO SURVEY ("ID", "CODE", "TITLE", "USER_ID", "STATUS")
-    VALUES (1, 'iAVtBlmC46', 'CET Survey', 2, 'DRAFT');
-INSERT INTO QUESTION ("ID", "TEXT", "FK_SURVEY")
+INSERT INTO SURVEY ("CODE", "TITLE", "USER_ID", "STATUS")
+    VALUES ('iAVtBlmC46', 'CET Survey', 2, 'DRAFT');
+INSERT INTO QUESTION ("TEXT", "FK_SURVEY")
     VALUES
-     (1, 'What is your preferred IDE?', 1),
-     (2, 'What is your favorite programming language?', 1),
-     (3, 'How often do you participate in code reviews?', 1);
+     ('What is your preferred IDE?', 1),
+     ('What is your favorite programming language?', 1),
+     ('How often do you participate in code reviews?', 1);
 INSERT INTO OPTION ("TEXT", "FK_QUESTION")
     VALUES
     ('IntelliJ IDEA', 1),
