@@ -2,9 +2,13 @@ package com.alldata.jproject.model;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="Usuarios")
 public class Usuario {

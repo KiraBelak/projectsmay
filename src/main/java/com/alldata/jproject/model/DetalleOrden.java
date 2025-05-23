@@ -1,7 +1,13 @@
 package com.alldata.jproject.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "detalles")
 public class DetalleOrden {

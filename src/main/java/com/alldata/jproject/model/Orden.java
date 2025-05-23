@@ -1,10 +1,16 @@
 package com.alldata.jproject.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "ordenes")
 public class Orden {
