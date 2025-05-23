@@ -15,5 +15,5 @@
 * Implementación de seguridad básica (Spring Security).  
 * Sockets
 * Configuración de Beans (Spring). ✓
-* Unit Testing (JUnit, Mockito).  
+* Unit Testing (JUnit, Mockito).  ✓
 
