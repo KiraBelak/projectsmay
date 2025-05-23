@@ -18,6 +18,7 @@ public class Teacher {
     private Long id;
     private String firstname;
     private String lastname;
+    private String password;
  
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Homework> homeworks;

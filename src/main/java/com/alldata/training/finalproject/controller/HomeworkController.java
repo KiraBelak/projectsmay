@@ -1,22 +1,15 @@
 package com.alldata.training.finalproject.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alldata.training.finalproject.exception.NoStudentFoundException;
 import com.alldata.training.finalproject.exception.NoTeacherFoundException;
-//import com.alldata.training.finalproject.exception.ErrorResponse;
-//import com.alldata.training.finalproject.exception.NoStudentFoundException;
-//import com.alldata.training.finalproject.exception.NoTeacherFoundException;
 import com.alldata.training.finalproject.model.Homework;
 import com.alldata.training.finalproject.model.Student;
 import com.alldata.training.finalproject.model.Teacher;
