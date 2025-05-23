@@ -1,0 +1,9 @@
+{
+  "name": "survey-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for the surveys project",
+  "scripts": {
+    "start": "npx http-server -p 8080"
+  },
+  "author": "emed"
+}

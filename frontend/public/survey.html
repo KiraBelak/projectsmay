@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <title>Survey</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <meta name="theme-color" content="#712cf9">
+  <script type="module" src="js/survey.js"></script>
+</head>
+<body>
+<div class="container">
+  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-clipboard-data" viewBox="0 0 16 16">
+        <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0z"/>
+        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
+        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
+      </svg>
+      <span class=" fs-4"> Surveys</span> </a>
+    <ul class="nav nav-pills">
+      <li class="nav-item"><a href="/" class="nav-link" aria-current="page">Home</a></li>
+      <li class="nav-item"><a href="new-survey.html" class="nav-link">New Survey</a></li>
+    </ul>
+  </header>
+</div>
+<main>
+  <div class="container">
+    <div class="fs-4">
+      <h2>survey</h2>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4" id="questions"></div>
+
+      <template id="question-template">
+        <div class="col">
+          <div class="card g-4">
+            <div class="card-body">
+              <h5 class="card-title"><span>title</span></h5>
+            </div>
+            <div class="form-check question-options"></div>
+          </div>
+        </div>
+      </template>
+      <template id="option-template">
+        <div class="form-check">
+          <input type="radio" name="radios-0" class="form-check-input" id="radio-0">
+          <label class="form-check-label" for="radio-0">Default radio</label>
+        </div>
+      </template>
+    </div>
+  </div>
+</main>
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
