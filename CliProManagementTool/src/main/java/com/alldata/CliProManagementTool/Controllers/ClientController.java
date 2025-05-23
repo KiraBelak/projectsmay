@@ -5,7 +5,6 @@ package com.alldata.CliProManagementTool.Controllers;/*
 */
 
 import com.alldata.CliProManagementTool.Entities.Client;
-import com.alldata.CliProManagementTool.Service.ClientService;
 import com.alldata.CliProManagementTool.Service.ServiceImpl.ClientServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

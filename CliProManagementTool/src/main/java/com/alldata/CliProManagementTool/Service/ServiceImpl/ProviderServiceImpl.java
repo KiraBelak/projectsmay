@@ -27,15 +27,10 @@ public class ProviderServiceImpl {
 
     @Transactional
     public Provider createProvider(@Valid Provider provider){
-        try{
             System.out.println("Creating new provider...");
             Provider savedProvider = providerRepository.save(provider);
             System.out.println("Provider created correctly...");
             return savedProvider;
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public List<Provider> getAllProviders(){

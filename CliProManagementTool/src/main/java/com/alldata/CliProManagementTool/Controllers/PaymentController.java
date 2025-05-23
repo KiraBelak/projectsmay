@@ -41,4 +41,14 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.getPaymentsById());
     }
 
+    @PostMapping("/getby/{clientId}")
+    public ResponseEntity<List<PaymentDTO>> getPaymentsByClientId(Long clientId){
+        return ResponseEntity.ok(paymentService.searchPaymentsByClientId(clientId));
+    }
+
+    @PostMapping("/getby/{providerId}")
+    public ResponseEntity<List<PaymentDTO>> getPaymentsByProviderId(Long providerId){
+        return ResponseEntity.ok(paymentService.searchPaymentsByProviderId(providerId));
+    }
+
 }

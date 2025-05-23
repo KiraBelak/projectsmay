@@ -65,16 +65,31 @@ public class PaymentServiceImpl {
        paymentRepository.deleteById(id);
     }
 
-    public List<PaymentDTO> searchPaymentsByProductName(String productName){
-        List<PaymentDTO> collect = paymentRepository.searchPaymentByCompanyName(productName).stream()
-                .map(this::convertEntityToDTO)
-                .collect(Collectors.toList());
-        return collect;
+    //! Update
+    public PaymentDTO updatePayment(Long id,PaymentDTO paymentDTO){
+        Payment currentPayment = paymentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Payment not found with current id: "+id));
+
+        currentPayment.setPaymentDescriptions(paymentDTO.getPaymentDescriptions());
+        currentPayment.setQuantity(paymentDTO.getQuantity());
+        //? Update client
+        if(paymentDTO.getClientId() != null){
+            Client client = clientRepository.findById(paymentDTO.getClientId())
+                    .orElseThrow( () -> new NotFoundException("Client not found for id: "+ paymentDTO.getClientId()));
+            currentPayment.setClient(client);
+        }
+        if(paymentDTO.getProviderId() != null){
+            Provider provider = providerRepository.findById(paymentDTO.getProviderId())
+                    .orElseThrow(() -> new NotFoundException("Provider not found for id: "+ paymentDTO.getProviderId()));
+            currentPayment.setProvider(provider);
+        }
+        Payment updatedPayment = paymentRepository.save(currentPayment);
+        return convertEntityToDTO(updatedPayment);
     }
 
-    public List<PaymentDTO> searchSongsByTitle(String companyName) {
-        return paymentRepository.searchPaymentByCompanyName(companyName).stream()
-                .map(this::convertEntityToDTO)
+    public List<PaymentDTO> searchPaymentsByDescriptions(String paymentDescription){
+        return paymentRepository.searchPaymentByPaymentDescriptions(paymentDescription)
+                .stream().map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -128,7 +143,7 @@ public class PaymentServiceImpl {
 
         //? Validation to avoid having both a client and a provider attached to a payment
         if(payment.getClient() != null && payment.getProvider() != null){
-            throw new DoublePaymentException("CONFLICT! A payment cannot be tied to both a client and a provider at the same time");
+            throw new DoublePaymentException("Conflict, A payment cannot be tied to both a client and a provider at the same time");
         }
         //? Validation for client not found by id
         if(payment.getClient() != null){
