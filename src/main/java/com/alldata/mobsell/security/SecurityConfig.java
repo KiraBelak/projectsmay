@@ -32,6 +32,7 @@ public class SecurityConfig {
             .csrf().disable()
             .authorizeHttpRequests()
             .requestMatchers("/api/auth/**").permitAll()
+            .requestMatchers("/ws/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .sessionManagement()
@@ -42,7 +43,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

@@ -2,13 +2,16 @@
 @baseUrl = http://localhost:2264
 @userCredentials = odette:garu
 @adminCredentials = admin:admin123
-@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnRvbmlvIiwiaWF0IjoxNzQ3ODQ5ODgyLCJleHAiOjE3NDc5MzYyODJ9.9RpktpeyhneHALJsIu_pKJCL96IjkQ-pdy3SRZgY13M
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnRvbmlvIiwiaWF0IjoxNzQ3OTczNDg4LCJleHAiOjE3NDgwNTk4ODh9.3RIhtu7n_hVcaEcJ9CFCN_5HjtCXRr9YnqsPFfl6ZNU
 
 ###
 GET {{baseUrl}}/api/phones
 Authorization: Bearer {{token}}
 ###
-GET http://localhost:2264/api/phone/make/apple
+GET http://localhost:2264/api/phones/make/apple
+Authorization: Bearer {{token}}
+###
+GET http://localhost:2264/api/phones/user/1
 Authorization: Bearer {{token}}
 ###
 POST {{baseUrl}}/api/auth/register
@@ -26,7 +29,7 @@ POST {{baseUrl}}/api/phones
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
-{"make":"Samsung","model":"S25","cpu":"Exynos 9500","ram":16,"price":799}
+{"make":"Apple","model":"iPhone 16","cpu":"A15","ram":32,"price":999}
 ###
 POST {{baseUrl}}/api/error
 Authorization: Bearer {{token}}
@@ -45,4 +48,4 @@ PUT {{baseUrl}}/api/phones/7
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
-{"make":"Samsung","model":"S25","cpu":"Exynos 9500","ram":32,"price":899}
+{"make":"Samsung","model":"S25","cpu":"E  xynos 9500","ram":32,"price":899}

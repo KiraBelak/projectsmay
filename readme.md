@@ -13,5 +13,5 @@ Plataforma de compra y venta de celulares.
 * Patrón de Diseño (Factory, Repository, DTO).  ✅
 * Programación Modular.  ✅
 * Implementación de seguridad básica (Spring Security).  ✅
-* Sockets. 
+* Sockets. ✅
 * Programación Java API. ✅ 

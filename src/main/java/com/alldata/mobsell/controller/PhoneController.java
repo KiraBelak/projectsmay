@@ -1,5 +1,6 @@
 package com.alldata.mobsell.controller;
 
+import com.alldata.mobsell.config.WebSocketHandler;
 import com.alldata.mobsell.dto.PhoneDTO;
 import com.alldata.mobsell.model.Phone;
 import com.alldata.mobsell.model.User;
@@ -20,11 +21,13 @@ public class PhoneController {
 
     private final PhoneService phoneService;
     private final UserService userService;
+    private final WebSocketHandler webSocketHandler;
 
     @Autowired
-    public PhoneController(PhoneService phoneService, UserService userService) {
+    public PhoneController(PhoneService phoneService, UserService userService, WebSocketHandler webSocketHandler) {
         this.phoneService = phoneService;
         this.userService = userService;
+        this.webSocketHandler = webSocketHandler;
     }
 
     @GetMapping
@@ -62,6 +65,11 @@ public class PhoneController {
         );
 
         Phone savedPhone = phoneService.save(phone);
+        try {
+            webSocketHandler.broadcast("A phone has been added to the catalog!:\n - " + phoneDTO.getModel() + " $" + phoneDTO.getPrice());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save phone " + phoneDTO.getMake() + " " +  phoneDTO.getModel());
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPhone);
     }
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Phone notificator</title>
+    <meta charset="utf-8"/>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+</head>
+<body class="container">
+<main class="container">
+    <h1>Notifications</h1>
+    <ul id="messages"></ul>
+</main>
+</body>
+<script>
+    const socket = new WebSocket("ws://localhost:2264/ws");
+    if (socket.readyState === WebSocket.OPEN) {
+        socket.send("Hello from client");
+    } else {
+        console.log("WebSocket not open yet");
+    }
+    socket.onmessage = function (event) {
+        const li = document.createElement("li");
+        li.textContent = "🏷️🔥" + event.data;
+        document.getElementById("messages").appendChild(li);
+    };
+</script>
+</html>
