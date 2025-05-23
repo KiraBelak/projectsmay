@@ -3,7 +3,7 @@ package com.finalproject.gamestop.model;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Accesory extends Product {
+public class Accessory extends Product {
 
     private String type;
     private String compatibility;

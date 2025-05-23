@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Order Notifications</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <style>
+        #loginForm { margin-bottom: 20px; }
+        #notifications { margin-top: 20px; }
+        .order-box { border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; border-radius: 6px; background: #f9f9f9; }
+        .order-items { margin-left: 20px; }
+        #logoutBtn { margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Real-time Order Notifications</h1>
+    <div id="loginForm">
+        <label>Username: <input type="text" id="username"></label>
+        <label>Password: <input type="password" id="password"></label>
+        <button onclick="login()">Login & Connect</button>
+        <span id="loginStatus"></span>
+    </div>
+    <button id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+    <div id="notifications"></div>
+
+    <script>
+        let stompClient = null;
+        let token = null;
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            document.getElementById('loginStatus').textContent = "Logging in...";
+            fetch('http://localhost:8080/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error("Login failed");
+                return response.json();
+            })
+            .then(data => {
+                token = data.token;
+                document.getElementById('loginStatus').textContent = "Connected!";
+                document.getElementById('loginForm').style.display = "none";
+                document.getElementById('logoutBtn').style.display = "";
+                connectWS();
+            })
+            .catch(() => {
+                document.getElementById('loginStatus').textContent = "Login failed!";
+            });
+        }
+
+        function connectWS() {
+            const socket = new SockJS('http://localhost:8080/ws-orders');
+            stompClient = Stomp.over(socket);
+            stompClient.connect(
+                { Authorization: 'Bearer ' + token },
+                function(frame) {
+                    stompClient.subscribe('/topic/orders', function(notification) {
+                        const order = JSON.parse(notification.body);
+                        displayOrderNotification(order);
+                    });
+                },
+                function(error) {
+                    alert('WebSocket connection error: ' + error);
+                }
+            );
+        }
+
+        function displayOrderNotification(order) {
+            const notificationsDiv = document.getElementById('notifications');
+            const orderElement = document.createElement('div');
+            orderElement.className = 'order-box';
+            orderElement.innerHTML = `
+                <strong>Order status changed:</strong> Order #${order.id} changed to status: <b>${order.status}</b><br>
+                <b>Customer:</b> ${order.customerName} (${order.customerEmail})<br>
+                <b>Shipping Address:</b> ${order.shippingAddress}<br>
+                <b>Date:</b> ${order.orderDate}<br>
+                <b>Total:</b> $${order.totalAmount}<br>
+                <b>Items:</b>
+                <ul class="order-items">
+                    ${order.items.map(item => `
+                        <li>
+                            <b>${item.productName}</b> (x${item.quantity}) - $${item.unitPrice} each, Subtotal: $${item.subtotal}
+                        </li>
+                    `).join('')}
+                </ul>
+                <small>Timestamp: ${new Date().toLocaleString()}</small>
+            `;
+            notificationsDiv.prepend(orderElement);
+        }
+
+        function logout() {
+            token = null;
+            if (stompClient) {
+                stompClient.disconnect(() => {}, {});
+            }
+            document.getElementById('notifications').innerHTML = '';
+            document.getElementById('loginForm').style.display = "";
+            document.getElementById('logoutBtn').style.display = "none";
+            document.getElementById('loginStatus').textContent = "";
+            document.getElementById('username').value = "";
+            document.getElementById('password').value = "";
+        }
+    </script>
+</body>
+</html>

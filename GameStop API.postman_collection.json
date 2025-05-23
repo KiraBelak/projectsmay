@@ -1,0 +1,1065 @@
+{
+	"info": {
+		"_postman_id": "11098a20-4e57-46f7-b65f-1b275a2d11e7",
+		"name": "GameStop API",
+		"description": "Colección de endpoints para GameStop API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45219773",
+		"_collection_link": "https://winter-spaceship-9770315.postman.co/workspace/Josu%C3%A9's-Workspace~080e9069-aa6b-4d90-8f27-ae6a455f2c66/collection/45219773-11098a20-4e57-46f7-b65f-1b275a2d11e7?action=share&source=collection_link&creator=45219773"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consoles",
+			"item": [
+				{
+					"name": "Get All Consoles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/consoles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Console By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/consoles/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Console",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"PlayStation 2\",\n  \"description\": \"PS2\",\n  \"price\": 199.99,\n  \"stock\": 30,\n  \"rating\": 5.0,\n  \"manufacturer\": \"Sony\",\n  \"model\": \"PlayStation 2\",\n  \"releaseYear\": 2000,\n  \"generation\": \"6th generation\",\n  \"reviews\": [\n    {\n      \"comment\": \"Best Console Ever Made\",\n      \"rating\": 5,\n      \"userName\": \"retroFan42\"\n    }\n  ]\n}\n"
+						},
+						"url": {
+							"raw": "localhost:8080/api/consoles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Console",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 99.99\n}\n"
+						},
+						"url": {
+							"raw": "localhost:8080/api/consoles/23",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Console",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/consoles/23",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Consoles by Manufacturer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/consoles/manufacturer/Sony",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles",
+								"manufacturer",
+								"Sony"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Consoles by Generation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/consoles/generation/9th%20Generation",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles",
+								"generation",
+								"9th%20Generation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Consoles by Price Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/consoles/price-range?minPrice=100&maxPrice=500",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles",
+								"price-range"
+							],
+							"query": [
+								{
+									"key": "minPrice",
+									"value": "100"
+								},
+								{
+									"key": "maxPrice",
+									"value": "500"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Popular Consoles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/consoles/popular",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles",
+								"popular"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Consoles by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/consoles/search?name=Switch",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"consoles",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Switch"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accessories",
+			"item": [
+				{
+					"name": "Get All Accessories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/accessories",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Accessory By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/accessories/13",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Accessory",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Wireless Controller\",\n  \"type\": \"Controller\",\n  \"brand\": \"Sony\",\n  \"compatibility\": \"PlayStation 5\",\n  \"price\": 69.99,\n  \"stock\": 50\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/api/accessories",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Accessory",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 59.99,\n  \"stock\": 40\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/api/accessories/24",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories",
+								"24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Accessory",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/accessories/24",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories",
+								"24"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Accessories by Type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/accessories/type/Controller",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories",
+								"type",
+								"Controller"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Accessories by Compatibility",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/accessories/compatibility/PlayStation%205",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories",
+								"compatibility",
+								"PlayStation%205"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Accessories by Brand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/accessories/brand/Sony",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories",
+								"brand",
+								"Sony"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Accessories by Price Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/accessories/price-range?minPrice=10&maxPrice=200",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories",
+								"price-range"
+							],
+							"query": [
+								{
+									"key": "minPrice",
+									"value": "10"
+								},
+								{
+									"key": "maxPrice",
+									"value": "200"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Popular Accessories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/accessories/popular",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories",
+								"popular"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Accessories by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/accessories/search?name=Dualsense",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accessories",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Dualsense"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/orders/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerEmail\": \"gitarswarsnogard@gmail.com\",\n  \"customerName\": \"Josué Martínez\",\n  \"orderDate\": \"2025-05-22T20:00:00\",\n  \"shippingAddress\": \"Metropolis\",\n  \"status\": \"PENDING\",\n  \"totalAmount\": 499.99,\n  \"items\": [\n    {\n      \"productId\": 11,\n      \"quantity\": 1\n    },\n    {\n      \"productId\": 13,\n      \"quantity\": 2\n    }\n  ]\n}\n"
+						},
+						"url": {
+							"raw": "localhost:8080/api/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"items\": [\n    {\n      \"productId\": 11,\n      \"quantity\": 5\n    },\n    {\n      \"productId\": 13,\n      \"quantity\": 2\n    }\n  ]\n}\n"
+						},
+						"url": {
+							"raw": "localhost:8080/api/orders/9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/orders/9/status?status=PROCESSING",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"9",
+								"status"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PROCESSING"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Order",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/orders/9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders by Customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/orders/customer?email=alejandro.vv@hotmail.com",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"customer"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "alejandro.vv@hotmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders by Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/orders/status/SHIPPED",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"status",
+								"SHIPPED"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders by Date Range",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/orders/date-range?startDate=2024-05-10T00:00:00&endDate=2024-05-20T23:59:59",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"date-range"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-05-10T00:00:00"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-05-20T23:59:59"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get All Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Review By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/reviews/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc0Nzk2NTM4NywiZXhwIjoxNzQ4MDUxNzg3fQ.1_T2t0wuTiOSBGEiQB-AqbFJGnfS7ssLmXullRTi4A3705t0CPeWwEQPV6oogyqka_otuIKV9Bu5t-XTiDhNaA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productId\": 3,\n  \"userName\": \"gamer123\",\n  \"rating\": 5,\n  \"comment\": \"Can't wait to play the sequel!\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/api/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rating\": 4,\n  \"comment\": \"So goooooood\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/api/reviews/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/reviews/16",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reviews by Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/reviews/product/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews",
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Reviews by Min Rating",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/reviews/product/1/rating?minRating=4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews",
+								"product",
+								"1",
+								"rating"
+							],
+							"query": [
+								{
+									"key": "minRating",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reviews by User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/reviews/user/laura.mqz",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews",
+								"user",
+								"laura.mqz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Average Rating for Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/reviews/product/1/average-rating",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reviews",
+								"product",
+								"1",
+								"average-rating"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
