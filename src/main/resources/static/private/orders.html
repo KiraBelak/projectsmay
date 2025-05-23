@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Burritos</title>
+    <link rel="stylesheet" href="orders.css">
+</head>
+<body>
+<div class="container">
+    <div class="user-info">
+        <span id="currentUser">User: Cargando...</span>
+        <button id="logoutBtn">Cerrar sesión</button>
+    </div>
+    <h2>Menú</h2>
+    <input type="text" id="searchMenu" class="input-field" placeholder="Buscar platillo...">
+
+    <table>
+        <thead>
+        <tr>
+            <th>Platillo</th>
+            <th>Restaurante</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Agregar</th>
+        </tr>
+        </thead>
+        <tbody id="menuTableBody">
+        </tbody>
+    </table>
+
+    <h2>Órdenes</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Platillo</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+            <th>Eliminar</th>
+        </tr>
+        </thead>
+        <tbody id="orderTableBody">
+        </tbody>
+    </table>
+    <br>
+    <button id="confirmOrder" class="login-btn">Confirmar Pedido</button>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stomp-websocket@2.3.4-next/lib/stomp.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="orders.js"> </script>
+</body>
+</html>
