@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.alldata.training.finalproject.exception.IncorrectUsernameOrPasswordException;
+
 import java.util.Collections;
 
 @Service
@@ -18,12 +20,12 @@ public class MyUserDetailsService implements UserDetailsService {
         if ("admin".equals(username)) {
             return new User(
                 "admin",
-                //"{noop}admin", // {noop} indica que la contraseña no está encriptada
-                "admin",
+                "{noop}admin", // {noop} indica que la contraseña no está encriptada
+                //"admin",
                 Collections.singleton(() -> "ROLE_ADMIN")
             );
         } else {
-            throw new UsernameNotFoundException("Usuario no encontrado: " + username);
+            throw new IncorrectUsernameOrPasswordException("User not found: " + username);
         }
     }
 }

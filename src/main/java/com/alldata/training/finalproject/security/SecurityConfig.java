@@ -31,7 +31,8 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())            
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth.requestMatchers(
-                "/api/auth/**", "/h2-console/**", "/ws/**", "/topic/**", "/**", "/api/*/search", "/api/*/search/**", "/api/**").permitAll()
+                // "/h2-console/**", "/ws/**", "/**").permitAll()
+                "/h2-console/**", "/ws/**", "/login/**").permitAll()
                 .anyRequest().authenticated());
 
         http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
@@ -50,13 +51,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
         return provider;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean

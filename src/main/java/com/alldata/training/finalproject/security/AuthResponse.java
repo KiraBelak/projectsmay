@@ -1,20 +1,17 @@
 package com.alldata.training.finalproject.security;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthResponse {
-    private String jwt;
+    private String accessToken;
+    private String tokenType = "Bearer";
 
-    public AuthResponse() {
-    }
-
-    public AuthResponse(String jwt) {
-        this.jwt = jwt;
-    }
-
-    String getJwt() {
-        return jwt;
-    }
-
-    public void setJwt(String jwt) {
-        this.jwt = jwt;
+    public AuthResponse(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

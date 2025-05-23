@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.alldata.training.finalproject.security.IncorrectUsernameOrPassword;
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -33,10 +31,10 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(HttpStatus.CONFLICT.value(), exception.getMessage());
     }
 
-    @ExceptionHandler(value = IncorrectUsernameOrPassword.class)
+    @ExceptionHandler(value = IncorrectUsernameOrPasswordException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
-    public ErrorResponse handleIncorrectUsernameOrPassword(IncorrectUsernameOrPassword exception) {
+    public ErrorResponse handleIncorrectUsernameOrPassword(IncorrectUsernameOrPasswordException exception) {
         return new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
     }
 
