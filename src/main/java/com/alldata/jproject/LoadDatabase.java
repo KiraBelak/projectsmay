@@ -18,13 +18,19 @@ public class LoadDatabase {
     CommandLineRunner initDatabase(UsuarioRepository usuarioRepository, ProductoRepository productoRepository){
         return args -> {
 
-            Usuario usuario = new Usuario("Miguel Angel", "Majunia", "Miguel@miguel.com","Hyrule","12345","ADMIN","pass");
+            Usuario usuario = new Usuario("Miguel Angel", "Miguel", "Miguel@miguel.com","Hyrule","12345","ADMIN","pass");
           log.info("Inserting into Users :" + usuarioRepository.save(usuario));
-          log.info("Inserting into Users :" + usuarioRepository.save(new Usuario("Polancoas", "tnx", "Polancoas@graciaspor.com","Mexico","67891","USER","pass")));
+          log.info("Inserting into Users :" + usuarioRepository.save(new Usuario("Satwinder Mangat", "Satwinder", "Satwinder.Mangat@Alldata.com","United states","67891","USER","pass")));
 
           Producto producto = new Producto( "Paleta de chocolate", "Caja con 20 paletas sabor chocolate", "choco.jpg", 20.50, 50, 5);
           log.info("Inserting into Products :" + productoRepository.save(producto));
-            log.info("Inserting into Products :" + productoRepository.save(new Producto( "Helado napolitano", "Tiene capas de sabores, a todos les gusta, no conozco naiden que no le guste el helado napolitano", "default.jpg", 15, 55, 5)));
+            log.info("Inserting into Products :" + productoRepository.save(new Producto( "Helado napolitano", "Tiene capas de sabores, a todos les gusta, no conozco naiden que no le guste el helado napolitano", "napolitano.jpg", 15, 55, 5)));
+
+            log.info("Inserting into Products :" + productoRepository.save(new Producto( "Helado de Choco menta", "Helado de sabor choco menta", "chocomenta.jpg", 14, 25, 5)));
+
+            log.info("Inserting into Products :" + productoRepository.save(new Producto( "Helado de fresa", "Helado de sabor Fresa", "fresa.jpg", 18, 15, 5)));
+
+            log.info("Inserting into Products :" + productoRepository.save(new Producto( "Helado Cookies and cream", "Helado de sabor Cookies and cream", "cookiesandcream.jpg", 20, 10, 5)));
         };
     }
 }
