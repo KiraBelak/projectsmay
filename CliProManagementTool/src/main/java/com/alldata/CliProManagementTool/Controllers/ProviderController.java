@@ -28,11 +28,27 @@ public class ProviderController {
     public ResponseEntity<?> createProvider(@RequestBody @Valid ProviderDTO provider, BindingResult bindingResult){
         try{
             Provider createdProvider = providerService.convertDtoToEntity(provider);
-            providerService.createProvider(createdProvider);
+            providerService.createProvider(providerService.convertEntityToDTO(createdProvider));
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProvider(@PathVariable Long id){
+        providerService.deleteProvider(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/companyName/{companyName}")
+    public ResponseEntity<ProviderDTO> getByCompanyName(@PathVariable String companyName){
+        return ResponseEntity.ok(providerService.findProviderByCompanyName(companyName));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProviderDTO> updateProvider(@PathVariable Long id, @Valid @RequestBody ProviderDTO providerDTO){
+        return ResponseEntity.ok(providerService.updateProvider(id, providerDTO));
     }
 
     @GetMapping("/all")

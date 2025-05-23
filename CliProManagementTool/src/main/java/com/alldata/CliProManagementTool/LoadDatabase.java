@@ -24,7 +24,7 @@ public class LoadDatabase {
     CommandLineRunner initDatabase(ClientRepository repository, ProviderRepository providerRepository, PaymentRepository paymentRepository) {
         return args -> {
 
-            log.info("Inserting into Payments "+ paymentRepository.save(new Payment(12000.00,"Descripcion generica",new Client("Rochas cosas","Callejon del novolato #123","ctorres@gmail.com","Carlos Torres"), new Provider("Rochas cosas y mas","burritos","Unos burritos bien buenos"))));
+            log.info("Inserting into Payments "+ paymentRepository.save(new Payment(12000.00,"Descripcion generica",new Client("Rochas cosas","Callejon del novolato #123","ctorres@gmail.com","Carlos Torres"), null)));
 
             log.info("Inserting into Clients " + repository.save(new Client("Las tortas del tio carlitos","Callejon del novolato #123","ctorres@gmail.com","Carlos Torres")));
             log.info("Inserting into Clients " + repository.save(new Client("Bethortas vikingas","Periferico de las pacas de pastura #444","bebetortas@gmail.com","Beto Quintero")));

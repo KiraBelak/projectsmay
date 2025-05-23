@@ -41,12 +41,22 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.getPaymentsById());
     }
 
-    @PostMapping("/getby/{clientId}")
-    public ResponseEntity<List<PaymentDTO>> getPaymentsByClientId(Long clientId){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePayment(@PathVariable Long id){
+        paymentService.deletePayment(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PaymentDTO> updatePayment(@PathVariable Long id, @Valid @RequestBody PaymentDTO paymentDTO){
+        return ResponseEntity.ok(paymentService.updatePayment(id,paymentDTO));
+    }
+    @GetMapping("/getbyclient/{clientId}")
+    public ResponseEntity<List<PaymentDTO>> getPaymentsByClientId(@PathVariable Long clientId){
         return ResponseEntity.ok(paymentService.searchPaymentsByClientId(clientId));
     }
 
-    @PostMapping("/getby/{providerId}")
+    @GetMapping("/getbyprovider/{providerId}")
     public ResponseEntity<List<PaymentDTO>> getPaymentsByProviderId(Long providerId){
         return ResponseEntity.ok(paymentService.searchPaymentsByProviderId(providerId));
     }

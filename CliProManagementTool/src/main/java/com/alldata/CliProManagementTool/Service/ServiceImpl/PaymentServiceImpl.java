@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,7 +57,7 @@ public class PaymentServiceImpl {
     }
 
     //! Delete
-    public void DeletePayment(Long id){
+    public void deletePayment(Long id){
        if(!paymentRepository.existsById(id)){
            throw new NotFoundException("Payment not found by id, can't delete");
        }
@@ -147,18 +146,12 @@ public class PaymentServiceImpl {
         }
         //? Validation for client not found by id
         if(payment.getClient() != null){
-            Client client = clientRepository.findById(paymentDTO.getClientId())
-                    .orElseThrow(
-                            () -> new NotFoundException("Client not found by id: "+ paymentDTO.getClientId()));
+            paymentDTO.setClientId(payment.getClient().getId());
         }
         //? Validation for provider not found by id
         if(payment.getProvider() != null){
-            Provider provider = providerRepository.findById(paymentDTO.getProviderId())
-                    .orElseThrow(
-                            () -> new NotFoundException("Provider not found by id"+ paymentDTO.getProviderId()));
+            paymentDTO.setProviderId(payment.getProvider().getId());
         }
-        paymentDTO.setClientId(payment.getClient().getId());
-        paymentDTO.setProviderId(payment.getProvider().getId());
         return paymentDTO;
     }
 

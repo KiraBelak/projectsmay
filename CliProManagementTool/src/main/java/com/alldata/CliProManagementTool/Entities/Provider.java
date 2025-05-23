@@ -12,6 +12,7 @@ import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name="provider")
@@ -95,5 +96,8 @@ public class Provider {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setPayments(Optional<Payment> byId) {
     }
 }

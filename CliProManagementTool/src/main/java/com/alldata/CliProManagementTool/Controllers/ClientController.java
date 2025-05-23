@@ -4,11 +4,14 @@ package com.alldata.CliProManagementTool.Controllers;/*
  * @author Noktuos
 */
 
+import com.alldata.CliProManagementTool.DTO.ClientDTO;
 import com.alldata.CliProManagementTool.Entities.Client;
 import com.alldata.CliProManagementTool.Service.ServiceImpl.ClientServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 
@@ -31,6 +34,18 @@ public class ClientController {
             return ResponseEntity.badRequest().build();
         }
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteClient(@PathVariable Long id){
+        clientService.deleteClient(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClientDTO> updateClient(@PathVariable Long id, @Valid @RequestBody ClientDTO clientDTO){
+        return ResponseEntity.ok(clientService.updateClient(id,clientDTO));
+    }
+
+
 
     @GetMapping("/all")
     public ResponseEntity<List<Client>> getAllClients(){
