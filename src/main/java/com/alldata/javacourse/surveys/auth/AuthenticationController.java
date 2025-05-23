@@ -1,11 +1,13 @@
 package com.alldata.javacourse.surveys.auth;
 
+import com.alldata.javacourse.surveys.exception.AuthorizationException;
 import com.alldata.javacourse.surveys.model.User;
 import com.alldata.javacourse.surveys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -34,14 +37,21 @@ public class AuthenticationController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<String> createAuthenticationToken(@RequestBody AuthDto authDto) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDto.username(), authDto.password()));
+    public ResponseEntity<Map<String, Object>> createAuthenticationToken(@RequestBody AuthDto authDto) {
+        final User user;
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    Objects.requireNonNull(authDto.username(), "Username cannot be empty"),
+                    Objects.requireNonNull(authDto.password(), "Password cannot be empty")));
 
-        final User userDetails = userService.findByName(authDto.username())
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+            user = userService.findByName(authDto.username())
+                    .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        } catch (AuthenticationException e) {
+            throw new AuthorizationException(e.getMessage());
+        }
 
-        final String token = jwtUtil.generateToken(userDetails.getName());
-        return ResponseEntity.ok(token);
+        final String token = jwtUtil.generateToken(user.getName());
+        return ResponseEntity.ok(Map.of("token", token, "userId", user.getId()));
     }
 
     @PostMapping("register")

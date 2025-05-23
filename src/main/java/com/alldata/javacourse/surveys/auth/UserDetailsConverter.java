@@ -19,6 +19,6 @@ public class UserDetailsConverter implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new UserDetailsImpl(userService.findByName(username).get());
+        return new UserDetailsImpl(userService.findByName(username).orElseThrow(() -> new UsernameNotFoundException("Username not found")));
     }
 }
