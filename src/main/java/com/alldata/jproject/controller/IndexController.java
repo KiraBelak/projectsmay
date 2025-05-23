@@ -2,8 +2,6 @@ package com.alldata.jproject.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 //Rest controller solo se utiliza para devolver datos en backend
 @Controller
@@ -13,9 +11,9 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login_page")
     public String login(){
-        return "login";
+        return "login_page";
     }
 
     @GetMapping("/register")

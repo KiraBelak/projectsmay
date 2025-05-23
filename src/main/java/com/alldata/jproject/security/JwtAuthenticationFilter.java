@@ -1,5 +1,6 @@
 package com.alldata.jproject.security;
 
+import com.alldata.jproject.service.impl.CustomUserDetailService;
 import com.alldata.jproject.service.impl.UserServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtTokenProvider tokenProvider;
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private CustomUserDetailService customUserDetailService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -29,7 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if(token != null && !token.isBlank() && tokenProvider.validateToken(token)){
             String username =  tokenProvider.getUsername(token);
-            UserDetails userDetails = userServiceImpl.loadUserByUsername(username);
+            UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

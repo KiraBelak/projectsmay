@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl {
     private final UserRepository userRepository;
 
     @Autowired
@@ -28,16 +28,4 @@ public class UserServiceImpl implements UserDetailsService {
 
     public Optional<User> getUserById(Long id){return userRepository.findById(id);}
 
-    @Override
-    public UserDetails loadUserByUsername(String userIdentification) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(userIdentification).orElseGet(()->userRepository.findByEmail(userIdentification).orElseThrow(()-> new UsernameNotFoundException("Usuario no encontrado")));
-
-        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
-    }
-
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<String> roles) {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                .collect(Collectors.toList());
-    }
 }
