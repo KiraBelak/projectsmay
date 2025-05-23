@@ -1,13 +1,11 @@
 package com.alldata.jproject.security;
 
 import com.alldata.jproject.service.impl.CustomUserDetailService;
-import com.alldata.jproject.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,9 +38,9 @@ public class JwtConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/h2-console/**").permitAll()
-                                .requestMatchers("/", "/login/**", "/register").permitAll()
-                                .requestMatchers("/store/**").hasRole("ADMIN")
-                                .requestMatchers("/store/user/**").hasRole("USER")
+                                .requestMatchers("/", "/login/**", "/register/**").permitAll()
+                                .requestMatchers("/store/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/store/**").hasAnyRole("USER", "ADMIN")
                                 .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login/signin")

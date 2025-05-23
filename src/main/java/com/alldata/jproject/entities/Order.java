@@ -12,7 +12,7 @@ public class Order {
     private Long id;
 
     @Column(nullable = false)
-    private String product;
+    private String productName;
 
     @Column(name = "price", nullable = false)
     private Long price;
@@ -38,12 +38,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getProduct() {
-        return product;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct(String product) {
-        this.product = product;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public User getUser() {

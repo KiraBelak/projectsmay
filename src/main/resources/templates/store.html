@@ -17,7 +17,13 @@
             <tr th:each="product : ${products}">
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.price}"></td>
-                <td><button type="button">Agregar</button></td>
+                <td>
+                    <form action="/store/add" method="post">
+                        <input type="hidden" name="name" th:value="${product.name}"/>
+                        <input type="hidden" name="price" th:value="${product.price}"/>
+                        <button type="submit">Agregar</button>
+                    </form>
+                </td>
             </tr>
             <table>
     </div>
