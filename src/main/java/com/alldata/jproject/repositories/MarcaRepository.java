@@ -1,7 +1,9 @@
-package com.alldata.jproject.database.repositories;
+package com.alldata.jproject.repositories;
 
 import org.springframework.stereotype.Repository;
-import com.alldata.jproject.database.models.Marca;
+
+import com.alldata.jproject.models.Marca;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository

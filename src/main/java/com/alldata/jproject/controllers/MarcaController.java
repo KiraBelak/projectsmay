@@ -1,8 +1,9 @@
-package com.alldata.jproject.database.controllers;
+package com.alldata.jproject.controllers;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.alldata.jproject.database.models.Marca;
-import com.alldata.jproject.database.services.MarcaService;
+import com.alldata.jproject.modelsDTO.MarcaDTO;
+import com.alldata.jproject.services.MarcaService;
 
 @RestController
-@RequestMapping(path = "marcas")
+@RequestMapping(path = "/api/marcas")
 public class MarcaController {
     private final MarcaService marcaService;
 
@@ -26,34 +26,29 @@ public class MarcaController {
     }
 
     @PostMapping
-    public ResponseEntity<Marca> Post(@RequestBody Marca marca) {
+    public ResponseEntity<MarcaDTO> Post(@RequestBody MarcaDTO marca) {
         return ResponseEntity.ok(marcaService.Save(marca));
     }
 
     @GetMapping
-    public ResponseEntity<List<Marca>> GetAll() {
+    public ResponseEntity<List<MarcaDTO>> GetAll() {
         return ResponseEntity.ok(marcaService.Get());
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Marca> Put(@RequestParam Integer id, @RequestBody Marca marca) {
-        return marcaService.Update(id, marca);
+    public ResponseEntity<MarcaDTO> Put(@RequestParam Integer id, @RequestBody MarcaDTO marca) {
+        return ResponseEntity.ok(marcaService.Update(id, marca));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Marca> GetById(@PathVariable Integer id) {
-        return marcaService.GetById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<MarcaDTO> GetById(@PathVariable Integer id) {
+        return ResponseEntity.ok(marcaService.GetById(id));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> Delete(Integer id) {
-        return marcaService.GetById(id)
-                .map(user -> {
-                    marcaService.Delete(id);
-                    return ResponseEntity.noContent().<Void>build();
-                }).orElseGet(() -> ResponseEntity.notFound().build());
+    @PreAuthorize("hasRole('Admin')")
+    public ResponseEntity<Void> Delete(@PathVariable Integer id) {
+        marcaService.Delete(id);
+        return ResponseEntity.noContent().build();
     }
-
 }
